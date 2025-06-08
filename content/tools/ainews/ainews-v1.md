@@ -63,20 +63,22 @@ draft: false
 </style>
 
 <script>
+  const newsApiKey = "e0a7c73f5dfe49ec8b4061e085d73ec8";
+  const gnewsApiKey = "a2eb63380a75f0c1fe3e20b1963bc278";
+
   let newsApiPage = 1;
   let gnewsPage = 1;
   const pageSize = 3;
-  const backendBase = "http://127.0.0.1:5000";
 
   async function loadMoreNewsAPI() {
-    const url = `${backendBase}/api/newsapi?page=${newsApiPage}&pageSize=${pageSize}`;
+    const url = `https://newsapi.org/v2/everything?q=artificial%20intelligence&pageSize=${pageSize}&page=${newsApiPage}&sortBy=publishedAt&apiKey=${newsApiKey}`;
     try {
       const res = await fetch(url);
       const data = await res.json();
       const html = data.articles.map(article => `
         <tr>
           <td style="width: 100px; vertical-align: top;">
-            <img src="${article.urlToImage || 'https://via.placeholder.com/90'}" alt="News Image" class="news-image" onerror="this.src='https://via.placeholder.com/90';">
+            <img src="${article.urlToImage || 'https://via.placeholder.com/90'}" alt="News Image" class="news-image">
           </td>
           <td>
             <a href="${article.url}" class="news-title" target="_blank">${article.title}</a>
@@ -92,14 +94,14 @@ draft: false
   }
 
   async function loadMoreGNews() {
-    const url = `${backendBase}/api/gnews?page=${gnewsPage}&max=${pageSize}`;
+    const url = `https://gnews.io/api/v4/search?q=AI&lang=en&max=${pageSize}&page=${gnewsPage}&token=${gnewsApiKey}`;
     try {
       const res = await fetch(url);
       const data = await res.json();
       const html = data.articles.map(article => `
         <tr>
           <td style="width: 100px; vertical-align: top;">
-            <img src="${article.image || 'https://via.placeholder.com/90'}" alt="News Image" class="news-image" onerror="this.src='https://via.placeholder.com/90';">
+            <img src="${article.image || 'https://via.placeholder.com/90'}" alt="News Image" class="news-image">
           </td>
           <td>
             <a href="${article.url}" class="news-title" target="_blank">${article.title}</a>
@@ -118,4 +120,3 @@ draft: false
   loadMoreNewsAPI();
   loadMoreGNews();
 </script>
-

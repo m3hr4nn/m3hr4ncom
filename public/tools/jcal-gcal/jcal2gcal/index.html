@@ -5,18 +5,32 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Tools | m3hr4n.com</title>
+<title>Jalali to Gregorian Date Converter | m3hr4n.com</title>
 <meta name="keywords" content="">
-<meta name="description" content="Tools available
+<meta name="description" content="Jalali to Gregorian Date Converter
+Enter Jalali date in the format YYYY/MM/DD below and click Convert.
 
   
-    My First Post
+    Jalali Date (YYYY/MM/DD):
+    
   
-    Hello World
+  Convert
   
+
+Conversion Results (last 3):
+
+  
+    
+      Jalali Date
+      Gregorian Date
+    
+  
+  
+  
+
 ">
 <meta name="author" content="Mehran">
-<link rel="canonical" href="http://localhost:1313/tools/">
+<link rel="canonical" href="http://localhost:1313/tools/jcal-gcal/jcal2gcal/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
@@ -25,8 +39,7 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tools/index.xml">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/tools/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/tools/jcal-gcal/jcal2gcal/">
 <noscript>
     <style>
         #theme-toggle,
@@ -66,7 +79,7 @@
 </noscript>
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -118,43 +131,173 @@
             </li>
             <li>
                 <a href="http://localhost:1313/tools/" title="Tools">
-                    <span class="active">Tools</span>
+                    <span>Tools</span>
                 </a>
             </li>
         </ul>
     </nav>
 </header>
 <main class="main">
-  <h1>Tools</h1>
 
-  
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Jalali to Gregorian Date Converter
+    </h1>
+    <div class="post-meta"><span title='2025-06-08 00:00:00 +0000 UTC'>June 8, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Mehran
 
+</div>
+  </header> 
+  <div class="post-content"><h1 id="jalali-to-gregorian-date-converter">Jalali to Gregorian Date Converter<a hidden class="anchor" aria-hidden="true" href="#jalali-to-gregorian-date-converter">#</a></h1>
+<p>Enter Jalali date in the format <code>YYYY/MM/DD</code> below and click <strong>Convert</strong>.</p>
+<form id="dateForm">
+  <label>
+    Jalali Date (YYYY/MM/DD):
+    <input id="jalaliInput" type="text" placeholder="e.g. 1404/03/17" autocomplete="off" />
+  </label>
+  <button type="submit">Convert</button>
+  <div id="errorMsg" style="color: red; margin-top: 6px; display: none;"></div>
+</form>
+<h3>Conversion Results (last 3):</h3>
+<table id="resultTable" style="border-collapse: collapse; border: 1px solid black; width: 350px;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid black; padding: 6px;">Jalali Date</th>
+      <th style="border: 1px solid black; padding: 6px;">Gregorian Date</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+<script>
+// Jalali to Gregorian conversion function (same as before)
+function jalaliToGregorian(jy, jm, jd) {
+  jy = parseInt(jy);
+  jm = parseInt(jm);
+  jd = parseInt(jd);
+
+  var gy, gm, gd;
+  var g_days_in_month = [31,28,31,30,31,30,31,31,30,31,30,31];
+  var j_days_in_month = [31,31,31,31,31,31,30,30,30,30,30,29];
+
+  jy -= 979;
+  jm -= 1;
+  jd -= 1;
+
+  var j_day_no = 365*jy + Math.floor(jy/33)*8 + Math.floor((jy%33+3)/4);
+  for (var i=0; i < jm; ++i)
+    j_day_no += j_days_in_month[i];
+
+  j_day_no += jd;
+
+  var g_day_no = j_day_no + 79;
+
+  gy = 1600 + 400 * Math.floor(g_day_no / 146097);
+  g_day_no = g_day_no % 146097;
+
+  var leap = true;
+  if (g_day_no >= 36525) {
+    g_day_no--;
+    gy += 100 * Math.floor(g_day_no / 36524);
+    g_day_no = g_day_no % 36524;
+
+    if (g_day_no >= 365)
+      g_day_no++;
+    else
+      leap = false;
+  }
+
+  gy += 4 * Math.floor(g_day_no / 1461);
+  g_day_no %= 1461;
+
+  if (g_day_no >= 366) {
+    leap = false;
+    g_day_no--;
+    gy += Math.floor(g_day_no / 365);
+    g_day_no = g_day_no % 365;
+  }
+
+  var i = 0;
+  while (g_day_no >= g_days_in_month[i] + (i === 1 && leap ? 1 : 0)) {
+    g_day_no -= g_days_in_month[i] + (i === 1 && leap ? 1 : 0);
+    i++;
+  }
+  gm = i + 1;
+  gd = g_day_no + 1;
+
+  return {gy, gm, gd};
+}
+
+function pad(num, size) {
+  return num.toString().padStart(size, '0');
+}
+
+document.getElementById('dateForm').addEventListener('submit', function(e){
+  e.preventDefault();
+
+  var input = document.getElementById('jalaliInput').value.trim();
+  var errorMsg = document.getElementById('errorMsg');
+  var regex = /^(\d{4})\/(\d{2})\/(\d{2})$/;
+
+  if (!regex.test(input)) {
+    errorMsg.style.display = 'block';
+    errorMsg.textContent = 'Please input date in YYYY/MM/DD format';
+    return;
+  }
+
+  errorMsg.style.display = 'none';
+
+  var parts = input.match(regex);
+  var jy = parts[1];
+  var jm = parts[2];
+  var jd = parts[3];
+
+  // Validate month and day ranges roughly
+  var jmNum = parseInt(jm);
+  var jdNum = parseInt(jd);
+  if (jmNum < 1 || jmNum > 12 || jdNum < 1 || jdNum > 31) {
+    errorMsg.style.display = 'block';
+    errorMsg.textContent = 'Month must be 01-12 and Day must be 01-31';
+    return;
+  }
+
+  var gDate = jalaliToGregorian(jy, jm, jd);
+
+  var tbody = document.querySelector('#resultTable tbody');
   
-    <ul style="list-style-type:none; padding-left:0;">
-      
-        <li style="margin-bottom: 1.5em;">
-          <a href="/tools/ainews/ainews-v1/">AI News Feed</a>
-          
-        </li>
-      
-        <li style="margin-bottom: 1.5em;">
-          <a href="/tools/jcal-gcal/jcal-gcal-v1/">Jalali-Gregorian Date Converter</a>
-          
-        </li>
-      
-        <li style="margin-bottom: 1.5em;">
-          <a href="/tools/jcal-gcal/jcal-gcal/">Jalali-Gregorian Date Converter</a>
-          
-        </li>
-      
-        <li style="margin-bottom: 1.5em;">
-          <a href="/tools/ainews/ainews-v2/"></a>
-          
-        </li>
-      
+  // Create new row
+  var tr = document.createElement('tr');
+
+  var tdJalali = document.createElement('td');
+  tdJalali.style.border = '1px solid black';
+  tdJalali.style.padding = '6px';
+  tdJalali.textContent = `${jy}/${jm}/${jd}`;
+
+  var tdGregorian = document.createElement('td');
+  tdGregorian.style.border = '1px solid black';
+  tdGregorian.style.padding = '6px';
+  tdGregorian.textContent = `${gDate.gy}/${pad(gDate.gm,2)}/${pad(gDate.gd,2)}`;
+
+  tr.appendChild(tdJalali);
+  tr.appendChild(tdGregorian);
+  tbody.appendChild(tr);
+
+  // Keep only last 3 rows
+  while (tbody.rows.length > 3) {
+    tbody.deleteRow(0);
+  }
+});
+</script>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
     </ul>
-  
-
+  </footer>
+</article>
     </main>
     
 <footer class="footer">

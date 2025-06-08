@@ -5,18 +5,42 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Tools | m3hr4n.com</title>
+<title>Jalali-Gregorian Date Converter V2 | m3hr4n.com</title>
 <meta name="keywords" content="">
-<meta name="description" content="Tools available
+<meta name="description" content="
+
+
+  Jalali - Gregorian Date Converter
 
   
-    My First Post
+    
+      
+      
+        Gregorian Date (YYYY/MM/DD):
+        
+        Convert to Jalali
+        
+        
+      
+
+      
+      
+        Jalali Date (YYYY/MM/DD):
+        
+        Convert to Gregorian
+        
+        
+      
+    
   
-    Hello World
-  
+
+
+
+
+
 ">
 <meta name="author" content="Mehran">
-<link rel="canonical" href="http://localhost:1313/tools/">
+<link rel="canonical" href="http://localhost:1313/tools/jcal-gcal/jcal-gcal-v2/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
@@ -25,8 +49,7 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tools/index.xml">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/tools/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/tools/jcal-gcal/jcal-gcal-v2/">
 <noscript>
     <style>
         #theme-toggle,
@@ -66,7 +89,7 @@
 </noscript>
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -118,43 +141,171 @@
             </li>
             <li>
                 <a href="http://localhost:1313/tools/" title="Tools">
-                    <span class="active">Tools</span>
+                    <span>Tools</span>
                 </a>
             </li>
         </ul>
     </nav>
 </header>
 <main class="main">
-  <h1>Tools</h1>
 
-  
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Jalali-Gregorian Date Converter V2
+    </h1>
+    <div class="post-meta"><span title='2025-05-31 12:00:00 +0000 UTC'>May 31, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Mehran
 
-  
-    <ul style="list-style-type:none; padding-left:0;">
-      
-        <li style="margin-bottom: 1.5em;">
-          <a href="/tools/ainews/ainews-v1/">AI News Feed</a>
-          
-        </li>
-      
-        <li style="margin-bottom: 1.5em;">
-          <a href="/tools/jcal-gcal/jcal-gcal-v1/">Jalali-Gregorian Date Converter</a>
-          
-        </li>
-      
-        <li style="margin-bottom: 1.5em;">
-          <a href="/tools/jcal-gcal/jcal-gcal/">Jalali-Gregorian Date Converter</a>
-          
-        </li>
-      
-        <li style="margin-bottom: 1.5em;">
-          <a href="/tools/ainews/ainews-v2/"></a>
-          
-        </li>
-      
+</div>
+  </header> 
+  <div class="post-content">
+<style>
+  #converter {
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    color: var(--body-color);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 40px 10px;
+  }
+
+  td {
+    vertical-align: top;
+    width: 50%;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: var(--theme);
+    color: var(--body-color);
+  }
+
+  button {
+    background-color: #007acc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  button:hover {
+    background-color: #005a99;
+  }
+
+  .result {
+    margin-top: 10px;
+    font-size: 16px;
+    color: green;
+  }
+
+  .error {
+    color: red;
+    font-weight: bold;
+    margin-top: 8px;
+  }
+</style>
+
+<div id="converter">
+  <h2>Jalali - Gregorian Date Converter</h2>
+
+  <table>
+    <tr>
+      <!-- Gregorian to Jalali -->
+      <td>
+        <label for="gregorianDate">Gregorian Date (YYYY/MM/DD):</label>
+        <input type="text" id="gregorianDate" placeholder="e.g. 2025/06/08" />
+        <button onclick="convertGregorianToJalali()">Convert to Jalali</button>
+        <div id="resultG2J" class="result"></div>
+        <div id="errorG2J" class="error"></div>
+      </td>
+
+      <!-- Jalali to Gregorian -->
+      <td>
+        <label for="jalaliDate">Jalali Date (YYYY/MM/DD):</label>
+        <input type="text" id="jalaliDate" placeholder="e.g. 1404/03/18" />
+        <button onclick="convertJalaliToGregorian()">Convert to Gregorian</button>
+        <div id="resultJ2G" class="result"></div>
+        <div id="errorJ2G" class="error"></div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- Jalaali JS from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js@1.1.0/dist/jalaali.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const gInput = document.getElementById('gregorianDate');
+    const jInput = document.getElementById('jalaliDate');
+    const gResult = document.getElementById('resultG2J');
+    const jResult = document.getElementById('resultJ2G');
+    const gError = document.getElementById('errorG2J');
+    const jError = document.getElementById('errorJ2G');
+
+    function isValid(input) {
+      return /^\d{4}\/\d{2}\/\d{2}$/.test(input);
+    }
+
+    window.convertGregorianToJalali = function () {
+      const input = gInput.value.trim().replace(/-/g, '/');
+      gResult.innerHTML = '';
+      gError.innerHTML = '';
+
+      if (!isValid(input)) {
+        gError.innerHTML = 'Invalid format. Use YYYY/MM/DD.';
+        return;
+      }
+
+      const [gy, gm, gd] = input.split('/').map(Number);
+      const { jy, jm, jd } = jalaali.toJalaali(gy, gm, gd);
+      gResult.innerHTML = `<strong>Jalali Date:</strong> ${jy}/${String(jm).padStart(2, '0')}/${String(jd).padStart(2, '0')}`;
+    }
+
+    window.convertJalaliToGregorian = function () {
+      const input = jInput.value.trim().replace(/-/g, '/');
+      jResult.innerHTML = '';
+      jError.innerHTML = '';
+
+      if (!isValid(input)) {
+        jError.innerHTML = 'Invalid format. Use YYYY/MM/DD.';
+        return;
+      }
+
+      const [jy, jm, jd] = input.split('/').map(Number);
+      const { gy, gm, gd } = jalaali.toGregorian(jy, jm, jd);
+      jResult.innerHTML = `<strong>Gregorian Date:</strong> ${gy}/${String(gm).padStart(2, '0')}/${String(gd).padStart(2, '0')}`;
+    }
+
+    gInput.addEventListener('keydown', e => e.key === 'Enter' && convertGregorianToJalali());
+    jInput.addEventListener('keydown', e => e.key === 'Enter' && convertJalaliToGregorian());
+  });
+</script>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
     </ul>
-  
-
+  </footer>
+</article>
     </main>
     
 <footer class="footer">

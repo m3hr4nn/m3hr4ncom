@@ -5,18 +5,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="noindex, nofollow">
-<title>Tools | m3hr4n.com</title>
+<title>AI News Feed | m3hr4n.com</title>
 <meta name="keywords" content="">
-<meta name="description" content="Tools available
+<meta name="description" content="
+  
+  NewsAPI
+  
+  
+    &#43; More NewsAPI
+  
+  
+  GNews
+  
+  
+    &#43; More GNews
+  
 
-  
-    My First Post
-  
-    Hello World
-  
+
 ">
 <meta name="author" content="Mehran">
-<link rel="canonical" href="http://localhost:1313/tools/">
+<link rel="canonical" href="http://localhost:1313/tools/ainews/ainews-v1/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
@@ -25,8 +33,7 @@
 <link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tools/index.xml">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/tools/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/tools/ainews/ainews-v1/">
 <noscript>
     <style>
         #theme-toggle,
@@ -66,7 +73,7 @@
 </noscript>
 </head>
 
-<body class="list" id="top">
+<body class="" id="top">
 <script>
     if (localStorage.getItem("pref-theme") === "dark") {
         document.body.classList.add('dark');
@@ -118,43 +125,144 @@
             </li>
             <li>
                 <a href="http://localhost:1313/tools/" title="Tools">
-                    <span class="active">Tools</span>
+                    <span>Tools</span>
                 </a>
             </li>
         </ul>
     </nav>
 </header>
 <main class="main">
-  <h1>Tools</h1>
 
-  
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      AI News Feed
+    </h1>
+    <div class="post-meta"><span title='2025-05-31 12:00:00 +0000 UTC'>May 31, 2025</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Mehran
 
-  
-    <ul style="list-style-type:none; padding-left:0;">
-      
-        <li style="margin-bottom: 1.5em;">
-          <a href="/tools/ainews/ainews-v1/">AI News Feed</a>
-          
-        </li>
-      
-        <li style="margin-bottom: 1.5em;">
-          <a href="/tools/jcal-gcal/jcal-gcal-v1/">Jalali-Gregorian Date Converter</a>
-          
-        </li>
-      
-        <li style="margin-bottom: 1.5em;">
-          <a href="/tools/jcal-gcal/jcal-gcal/">Jalali-Gregorian Date Converter</a>
-          
-        </li>
-      
-        <li style="margin-bottom: 1.5em;">
-          <a href="/tools/ainews/ainews-v2/"></a>
-          
-        </li>
-      
+</div>
+  </header> 
+  <div class="post-content"><div id="news-feed" style="max-width: 900px; margin: 2rem auto; font-family: Arial, sans-serif;">
+  <!-- NewsAPI Section -->
+  <h3 style="margin-bottom: 1rem; text-align: center;">NewsAPI</h3>
+  <table style="width: 100%; border-collapse: separate; border-spacing: 1rem;" id="newsapi"></table>
+  <div style="text-align: center; margin-bottom: 2rem;">
+    <button onclick="loadMoreNewsAPI()" style="padding: 0.5rem 1rem; border: none; border-radius: 4px; background-color: #007acc; color: white; cursor: pointer;">+ More NewsAPI</button>
+  </div>
+  <!-- GNews Section -->
+  <h3 style="margin-top: 3rem; margin-bottom: 1rem; text-align: center;">GNews</h3>
+  <table style="width: 100%; border-collapse: separate; border-spacing: 1rem;" id="gnews"></table>
+  <div style="text-align: center;">
+    <button onclick="loadMoreGNews()" style="padding: 0.5rem 1rem; border: none; border-radius: 4px; background-color: #007acc; color: white; cursor: pointer;">+ More GNews</button>
+  </div>
+</div>
+<style>
+  .news-image {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .news-title {
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: var(--link-color, #007acc);
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .news-description {
+    font-size: 0.85rem;
+    color: var(--text-color, #444);
+    margin-top: 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .news-description {
+      color: #bbb;
+    }
+    .news-title {
+      color: #4fc3f7;
+    }
+  }
+</style>
+<script>
+  const newsApiKey = "e0a7c73f5dfe49ec8b4061e085d73ec8";
+  const gnewsApiKey = "a2eb63380a75f0c1fe3e20b1963bc278";
+
+  let newsApiPage = 1;
+  let gnewsPage = 1;
+  const pageSize = 3;
+
+  async function loadMoreNewsAPI() {
+    const url = `https://newsapi.org/v2/everything?q=artificial%20intelligence&pageSize=${pageSize}&page=${newsApiPage}&sortBy=publishedAt&apiKey=${newsApiKey}`;
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      const html = data.articles.map(article => `
+        <tr>
+          <td style="width: 100px; vertical-align: top;">
+            <img src="${article.urlToImage || 'https://via.placeholder.com/90'}" alt="News Image" class="news-image">
+          </td>
+          <td>
+            <a href="${article.url}" class="news-title" target="_blank">${article.title}</a>
+            <div class="news-description">${article.description || ''}</div>
+          </td>
+        </tr>
+      `).join('');
+      document.getElementById('newsapi').insertAdjacentHTML('beforeend', html);
+      newsApiPage++;
+    } catch (err) {
+      console.error("NewsAPI fetch error:", err);
+    }
+  }
+
+  async function loadMoreGNews() {
+    const url = `https://gnews.io/api/v4/search?q=AI&lang=en&max=${pageSize}&page=${gnewsPage}&token=${gnewsApiKey}`;
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      const html = data.articles.map(article => `
+        <tr>
+          <td style="width: 100px; vertical-align: top;">
+            <img src="${article.image || 'https://via.placeholder.com/90'}" alt="News Image" class="news-image">
+          </td>
+          <td>
+            <a href="${article.url}" class="news-title" target="_blank">${article.title}</a>
+            <div class="news-description">${article.description || ''}</div>
+          </td>
+        </tr>
+      `).join('');
+      document.getElementById('gnews').insertAdjacentHTML('beforeend', html);
+      gnewsPage++;
+    } catch (err) {
+      console.error("GNews fetch error:", err);
+    }
+  }
+
+  // Initial Load
+  loadMoreNewsAPI();
+  loadMoreGNews();
+</script>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
     </ul>
-  
-
+  </footer>
+</article>
     </main>
     
 <footer class="footer">
