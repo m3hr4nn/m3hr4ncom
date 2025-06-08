@@ -21,21 +21,25 @@ This project serves as a portfolio to showcase my experience, skills, and projec
 
 ## 📁 Project Structure
 
-/
 ├── content/ # Blog posts and pages
+
 ├── layouts/ # Custom templates (if needed)
+
 ├── static/ # Static assets (JS, images, etc.)
+
 ├── themes/ # PaperMod theme
+
 ├── config.toml # Hugo configuration
+
 └── README.md # This file
 
 
 ## 📦 How to Run Locally
 
 ```bash
-git clone https://github.com/m3hr4nn/m3hr4ncom.git
-cd m3hr4ncom
-hugo server -D
+git clone https://github.com/m3hr4nn/m3hr4ncom.git;
+cd m3hr4ncom;
+hugo server
 ```
 Then open your browser at http://localhost:1313
 
@@ -44,7 +48,7 @@ Feel free to explore, fork, or reach out!
 ---
 
 Let me know if you'd like to auto-fill parts like social links, project links, or a cool badge section!
-💬 About Me
+## 💬 About Me
 I'm Mehran Naderizadeh — a DevOps & Cloud Engineer with a focus on infrastructure as code, containerization, OpenStack, Kubernetes, and automation.
 Currently working on expanding my portfolio and learning full-stack DevOps practices.
 
