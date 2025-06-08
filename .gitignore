@@ -18,7 +18,7 @@ Thumbs.db
 *.swo
 *.tmp
 
-# Node modules (if you're using JS tools)
+# Node modules
 /node_modules/
 
 # Python virtual envs
