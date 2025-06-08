@@ -1,0 +1,33 @@
+# Hugo output directory
+/public/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/Editor files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Backup and temp files
+*.bak
+*.swp
+*.swo
+*.tmp
+
+# Node modules (if you're using JS tools)
+/node_modules/
+
+# Python virtual envs
+/venv/
+/__pycache__/
+
+# Hugo build
+/resources/_gen/
+
+# Generated files
+hugo_stats.json
+
