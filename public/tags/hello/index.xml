@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Hello on m3hr4n.com</title>
+    <link>http://localhost:1313/tags/hello/</link>
+    <description>Recent content in Hello on m3hr4n.com</description>
+    <generator>Hugo -- 0.147.6</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 31 May 2025 12:00:00 +0330</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/hello/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello World</title>
+      <link>http://localhost:1313/posts/hello-world/</link>
+      <pubDate>Sat, 31 May 2025 12:00:00 +0330</pubDate>
+      <guid>http://localhost:1313/posts/hello-world/</guid>
+      <description>&lt;p&gt;Welcome to my very first post on &lt;strong&gt;m3hr4n.com&lt;/strong&gt;! 🎉&lt;/p&gt;
+&lt;p&gt;This is where I will share insights about DevOps, cloud, AI, and other cool stuff.&lt;/p&gt;
+&lt;p&gt;Stay tuned for more updates!&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

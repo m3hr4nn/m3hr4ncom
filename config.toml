@@ -1,0 +1,40 @@
+baseURL = "https://m3hr4n.com/"
+languageCode = "en-us"
+title = "m3hr4n.com"
+theme = "PaperMod"
+
+[pagination]
+  pagerSize = 10
+
+[menu]
+
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 1
+
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    weight = 2
+
+  [[menu.main]]
+    identifier = "tools"
+    name = "Tools"
+    url = "/tools/"
+    weight = 3
+
+[params]
+  homeInfoParams = { Title = "👋 Welcome", Content = "This is my personal DevOps corner." }
+  showReadingTime = true
+  author = "Mehran"
+  description = "DevOps & Cloud Engineer's personal site"
+  googleAnalytics = ""
+  enableDarkMode = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
