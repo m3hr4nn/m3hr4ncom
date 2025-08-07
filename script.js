@@ -472,6 +472,9 @@ function initPerformanceMonitoring() {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    // Handle profile image fallback
+    initProfileImage();
+    
     // Core functionality
     const tilLoader = new TILLoader();
     tilLoader.loadTILContent();
@@ -495,3 +498,24 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('💼 DevOps Engineer | Infrastructure Specialist');
     console.log('📊 6+ years managing 5000+ computing resources');
 });
+
+// Profile image fallback handler
+function initProfileImage() {
+    const profileImg = document.querySelector('.profile-pic');
+    const fallback = document.querySelector('.image-placeholder');
+    
+    if (profileImg) {
+        profileImg.addEventListener('error', function() {
+            this.style.display = 'none';
+            if (fallback) {
+                fallback.style.display = 'flex';
+            }
+        });
+        
+        profileImg.addEventListener('load', function() {
+            if (fallback) {
+                fallback.style.display = 'none';
+            }
+        });
+    }
+}
