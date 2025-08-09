@@ -1,6 +1,0 @@
-<ul>
-  {{ range first 5 (where .Site.RegularPages "Section" "posts") }}
-    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
-  {{ end }}
-</ul>
-
