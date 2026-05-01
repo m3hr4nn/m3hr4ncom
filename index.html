@@ -48,8 +48,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     
-    <!-- Google reCAPTCHA v3 -->
-    <script src="https://www.google.com/recaptcha/api.js?render=6LdNQtUrAAAAABweDSnEgFYsqxl2spT9KnJp5U6Y"></script>
 </head>
 <body>
     <!-- Scroll Progress Bar -->
@@ -69,7 +67,7 @@
         <div class="nav-container">
             <div class="nav-brand">
                 <div class="logo-container">
-                    <img src="logo.png" alt="Mehran Naderizadeh Logo" class="nav-logo" loading="lazy">
+                    <img src="logo.png" alt="Mehran Naderizadeh Logo" class="nav-logo">
                 </div>
             </div>
             
@@ -111,7 +109,7 @@
     <section class="hero-section">
         <div class="hero-content">
             <h1 class="hero-title">
-                <p class="hero-greeting">Hello, I'm</p>
+                <span class="hero-greeting">Hello, I'm</span>
                 <span class="hero-name">Mehran Naderizadeh</span>
             </h1>
             <p class="hero-subtitle">DevOps Engineer & Infrastructure Specialist</p>
@@ -704,84 +702,12 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Mehran Naderizadeh. All rights reserved.</p>
-            <p><a href="privacy-policy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a></p>
+            <p>&copy; <span id="footerYear"></span> Mehran Naderizadeh. All rights reserved.</p>
+            <p><a href="privacy-policy.html">Privacy Policy</a></p>
         </div>
     </footer>
 
     <!-- Enhanced With Security Script -->
     <script src="script.js"></script>
-    
-    <!-- Cookie Consent Styles -->
-    <style>
-        .cookie-consent {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            padding: 1rem;
-            z-index: 9999;
-            animation: slideUp 0.3s ease;
-        }
-        
-        .cookie-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .cookie-content p {
-            margin: 0;
-            flex: 1;
-        }
-        
-        .cookie-content a {
-            color: #6366f1;
-            text-decoration: underline;
-        }
-        
-        .btn-accept, .btn-decline {
-            padding: 0.5rem 1.5rem;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-accept {
-            background: #10b981;
-            color: white;
-        }
-        
-        .btn-accept:hover {
-            background: #059669;
-        }
-        
-        .btn-decline {
-            background: transparent;
-            color: white;
-            border: 1px solid white;
-        }
-        
-        .btn-decline:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-    </style>
 </body>
 </html>

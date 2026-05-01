@@ -81,7 +81,7 @@ const initNavigation = () => {
     if (!navbar) return;
 
     window.addEventListener('scroll', () => {
-        navbar.classList.toggle('scrolled', window.pageYOffset > 50);
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
         updateScrollProgress();
     });
 
@@ -99,7 +99,7 @@ const initNavigation = () => {
     }
 
     const updateActiveLink = () => {
-        const scrollY = window.pageYOffset;
+        const scrollY = window.scrollY;
         document.querySelectorAll('section[id]').forEach(section => {
             const top = section.offsetTop - 100;
             if (scrollY > top && scrollY <= top + section.offsetHeight) {
@@ -263,5 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjectSlideshow();
     initCookieConsent();
     initContactProtection();
-    console.log('Portfolio initialized ✓');
+
+    const yr = document.getElementById('footerYear');
+    if (yr) yr.textContent = new Date().getFullYear();
 });
