@@ -5,16 +5,6 @@ Live: **[m3hr4n.com](https://m3hr4n.com)** · Legacy v1: **[m3hr4n.com/v/v1](htt
 
 ---
 
-## Version History
-
-| Version | Date | Notes |
-|---------|------|-------|
-| **v2.1** | May 2026 | Content update: googleipmonitor card refresh, footer © 2026, Legacy v1 link, `.htaccess` production config |
-| v2.0 | Apr 2025 | Season theme system (🌸☀️🍂❄️), scroll progress bar, skeleton loaders, dynamic experience counter, 8-project slideshow |
-| v1.0 | 2024 | Initial portfolio — dark/light toggle, basic slideshow |
-
----
-
 ## Stack
 
 | Layer | Choice | Why |
@@ -39,8 +29,7 @@ Years of experience in the About section is calculated at runtime: `currentYear 
 No manual updates needed on the site when the year rolls over.
 
 ### Project Slideshow
-Infinite-loop slideshow with touch/swipe support, auto-play pause on hover, and responsive breakpoints (3-up on desktop → 1-up on mobile). Built without any carousel library.  
-**Flagship project (googleipmonitor) is pinned first** in the slide order.
+Infinite-loop slideshow with touch/swipe support, auto-play pause on hover, and responsive breakpoints (3-up on desktop → 1-up on mobile). Built without any carousel library.
 
 ### Security Layers
 - Content Security Policy via `<meta>` + `.htaccess` headers
@@ -48,8 +37,7 @@ Infinite-loop slideshow with touch/swipe support, auto-play pause on hover, and 
 - Email/phone obfuscation via `data-*` attributes (not in page source as plain text)
 - Input sanitization and rate limiting on the PHP backend
 - SRI (Subresource Integrity) on all CDN assets
-- `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `HSTS` headers
-- Bad-bot and injection-pattern blocking in `.htaccess`
+- `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy` headers
 
 ### CV Gate
 Visitors fill a short form (name, email, company) before receiving the CV via email. Submissions are logged and a notification copy goes to the site owner. reCAPTCHA v3 score threshold: 0.5.
@@ -99,16 +87,11 @@ Two 404 errors: `favicon-32x32.png` and `favicon-16x16.png` — files missing fr
 - [ ] **logo.png** is 952 KB — needs converting to WebP and resizing to ≤ 60×60 px display size (currently served at 1024×1024)
 - [ ] **reCAPTCHA** loads eagerly on every page visit; should lazy-load only when the contact section scrolls into view
 - [ ] `favicon-32x32.png` and `favicon-16x16.png` return 404 — favicon files need uploading
+- [ ] `script.js` has no cache header (`Cache-Control: 0`) — needs a versioned filename or `.htaccess` cache rule
 - [ ] Slideshow `setInterval` runs continuously even when off-screen — switch to `IntersectionObserver` to pause when not in viewport
+- [ ] Accessibility: slideshow prev/next buttons flagged by axe (missing `aria-label`) — already in HTML but not reaching the dynamically injected buttons
 - [ ] Mobile load time optimisation pass (currently untested on mobile network)
 - [ ] Consider self-hosting Font Awesome to remove one external blocking request
-
-**Completed in v2.1:**
-- [x] `.htaccess` production config — cache headers, GZIP, security headers, HSTS, bad-bot blocking
-- [x] Footer copyright updated to 2026
-- [x] Legacy v1 link added to footer
-- [x] googleipmonitor card updated with accurate description and tech stack
-- [x] Slideshow arrow `aria-label` attributes added
 
 ---
 
@@ -116,19 +99,16 @@ Two 404 errors: `favicon-32x32.png` and `favicon-16x16.png` — files missing fr
 
 ```
 public_html/
-├── .htaccess           # Apache: HTTPS, cache, security, compression
 ├── index.html          # Main entry point
 ├── style.css           # All styles + 4 season CSS variable sets
 ├── script.js           # Theme switcher, slideshow, contact obfuscation
-├── send-cv.php         # CV download gate backend (reCAPTCHA + email)
-├── contact-form.html   # CV download gate frontend
+├── contact-form.html   # CV download gate (reCAPTCHA + PHP backend)
 ├── privacy-policy.html
 ├── terms.html
-├── robots.txt
-├── logo.png            # ⚠ 952 KB — convert to WebP (pending)
+├── logo.png
 ├── Mypic.jpg
 └── v/
-    └── v1/             # Archived previous version (legacy)
+    └── v1/             # Archived previous version
         ├── index.html
         ├── style.css
         └── script.js
@@ -145,4 +125,4 @@ python3 -m http.server 8080
 # then visit http://localhost:8080
 ```
 
-The PHP contact form requires a server with PHP + SMTP credentials configured — it won't work from a plain file server.
+The PHP contact form requires a server with PHP + SMTP credentials set in environment variables — it won't work from a plain file server.
