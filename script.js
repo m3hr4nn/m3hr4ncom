@@ -252,9 +252,20 @@ const initContactProtection = () => {
     });
 };
 
+// ─── Reveal Content (swap skeleton → actual) ─────────────────────────────────
+const revealContent = () => {
+    document.querySelectorAll('.content-loading').forEach(section => {
+        section.classList.remove('content-loading');
+        section.classList.add('content-loaded');
+        section.querySelector('.actual-content')?.classList.add('fade-in');
+    });
+};
+
+
 // ─── Init ────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     updateExperience();
+	revealContent();
     initSeasonTheme();
     initNavigation();
     initSmoothScroll();
