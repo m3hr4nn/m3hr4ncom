@@ -11,6 +11,11 @@ Thumbs.db
 
 # Logs
 *.log
+error_log
+
+# cPanel deployment archives
+allfiles.tar.gz
+*.tar.gz
 
 # Backup and temp files
 *.bak

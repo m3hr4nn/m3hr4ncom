@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
+    <title>Terms of Service - Mehran Naderizadeh</title>
+    <meta name="description" content="Terms of Service for Mehran Naderizadeh's portfolio website. Learn about the terms and conditions for using this website.">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #fdfdfd;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: rgba(99, 102, 241, 0.1);
+            --gradient-1: #14b8a6;
+            --gradient-2: #6366f1;
+            --gradient-3: #f59e0b;
+            --mesh-1: rgba(20, 184, 166, 0.15);
+            --mesh-2: rgba(99, 102, 241, 0.15);
+            --accent: #6366f1;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0d1117;
+            --bg-card: #1e293b;
+            --text: #e5e7eb;
+            --text-secondary: #94a3b8;
+            --border: rgba(20, 184, 166, 0.2);
+            --accent: #818cf8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            transition: background 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 150%;
+            height: 150%;
+            top: -25%;
+            left: -25%;
+            background:
+                radial-gradient(circle at 20% 50%, var(--mesh-1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--mesh-2) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .back-link:hover {
+            background: linear-gradient(135deg, var(--mesh-1), var(--mesh-2));
+            transform: translateX(-5px);
+        }
+
+        .theme-toggle {
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(180deg);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .terms-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .terms-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .last-updated {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .terms-content {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.08);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--mesh-1), var(--mesh-2));
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            margin: 1.5rem 0;
+        }
+
+        .highlight p {
+            margin-bottom: 0;
+            color: var(--text);
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, var(--mesh-1), var(--mesh-2));
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .contact-info h3 {
+            margin-top: 0;
+        }
+
+        .contact-info a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .terms-content {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-sun" id="themeIcon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="terms-header">
+            <div class="terms-icon">
+                <i class="fas fa-file-contract"></i>
+            </div>
+            <h1>Terms of Service</h1>
+            <p class="last-updated">Last updated: January 2025</p>
+        </div>
+
+        <div class="terms-content">
+            <div class="highlight">
+                <p><strong>Welcome to m3hr4n.com</strong> - By accessing and using this portfolio website, you agree to comply with and be bound by these Terms of Service.</p>
+            </div>
+
+            <h2>1. Acceptance of Terms</h2>
+            <p>By accessing, browsing, or using this website, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service and our Privacy Policy.</p>
+
+            <h2>2. Website Purpose</h2>
+            <p>This website serves as a professional portfolio showcasing:</p>
+            <ul>
+                <li>Professional experience and skills in DevOps Engineering</li>
+                <li>Portfolio of projects and achievements</li>
+                <li>Contact information for professional inquiries</li>
+                <li>General information about services and expertise</li>
+            </ul>
+
+            <h2>3. Permitted Use</h2>
+            <p>You may use this website for:</p>
+            <ul>
+                <li>Viewing portfolio content and professional information</li>
+                <li>Contacting for legitimate professional inquiries</li>
+                <li>Downloading publicly available resources (CV, portfolio materials)</li>
+            </ul>
+
+            <h2>4. Prohibited Activities</h2>
+            <p>You agree not to:</p>
+            <ul>
+                <li>Use the website for any unlawful purpose or activity</li>
+                <li>Attempt to gain unauthorized access to the website or its systems</li>
+                <li>Submit false, misleading, or spam content through contact forms</li>
+                <li>Copy, reproduce, or distribute content without permission</li>
+                <li>Use automated systems to access the website excessively</li>
+                <li>Interfere with the website's functionality or security</li>
+            </ul>
+
+            <h2>5. Content and Intellectual Property</h2>
+            <p>All content on this website, including text, images, designs, and code, is the property of Mehran Naderizadeh unless otherwise stated. You may not reproduce, distribute, or create derivative works without explicit permission.</p>
+
+            <h2>6. Contact Form and Communications</h2>
+            <p>When using the contact form:</p>
+            <ul>
+                <li>Provide accurate and truthful information</li>
+                <li>Use professional and respectful language</li>
+                <li>Limit communications to legitimate professional inquiries</li>
+                <li>Respect response times and communication preferences</li>
+            </ul>
+
+            <h2>7. Third-Party Services</h2>
+            <p>This website uses third-party services that have their own terms:</p>
+            <ul>
+                <li><strong>Formspree:</strong> Contact form processing</li>
+                <li><strong>Google reCAPTCHA:</strong> Spam protection</li>
+                <li><strong>Google Fonts:</strong> Typography</li>
+                <li><strong>Font Awesome:</strong> Icons</li>
+            </ul>
+
+            <h2>8. Disclaimers and Limitations</h2>
+            <div class="highlight">
+                <p><strong>This website is provided "as is" without warranties of any kind.</strong> We do not guarantee uninterrupted access, accuracy of information, or fitness for any particular purpose.</p>
+            </div>
+
+            <p>We are not liable for:</p>
+            <ul>
+                <li>Technical issues, downtime, or data loss</li>
+                <li>Actions taken based on information from this website</li>
+                <li>Third-party content or services</li>
+                <li>Any damages arising from use of this website</li>
+            </ul>
+
+            <h2>9. Privacy and Data Protection</h2>
+            <p>Your privacy is important to us. Please review our <a href="privacy-policy.html">Privacy Policy</a> to understand how we collect, use, and protect your information.</p>
+
+            <h2>10. Modifications to Terms</h2>
+            <p>We reserve the right to modify these Terms of Service at any time. Changes will be posted on this page with an updated "Last updated" date. Continued use of the website constitutes acceptance of any modifications.</p>
+
+            <h2>11. Termination</h2>
+            <p>We may terminate or suspend access to our website immediately, without prior notice, for conduct that we believe violates these Terms of Service or is harmful to other users or the website.</p>
+
+            <h2>12. Governing Law</h2>
+            <p>These Terms of Service are governed by applicable local laws. Any disputes will be resolved through appropriate legal channels.</p>
+
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p>If you have questions about these Terms of Service, please contact:</p>
+                <p>
+                    <strong>Email:</strong> <a href="mailto:mehran.n1995@gmail.com">mehran.n1995@gmail.com</a><br>
+                    <strong>Website:</strong> <a href="https://m3hr4n.com">m3hr4n.com</a><br>
+                    <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/m3hr4nn" target="_blank" rel="noopener">linkedin.com/in/m3hr4nn</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Mehran Naderizadeh. All rights reserved.</p>
+        <p><a href="index.html">Home</a> | <a href="contact-form.html">Contact</a> | <a href="privacy-policy.html">Privacy Policy</a></p>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const initTheme = () => {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const savedTheme = localStorage.getItem('theme') || 'light';
+
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            themeIcon.className = savedTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+
+            themeToggle?.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeIcon.className = newTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+            });
+        };
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initTheme);
+    </script>
+
+    <!-- Cookie Consent -->
+    <script src="cookie-consent.js"></script>
+</body>
+</html>
