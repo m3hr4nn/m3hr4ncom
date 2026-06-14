@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com;
+        style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+        font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self' https://www.google.com https://formspree.io;
+        frame-src https://www.google.com;
+        frame-ancestors 'none';
+    ">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    
+    <title>Secure CV Download - Mehran Naderizadeh</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" 
+          rel="stylesheet"
+          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+          crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Formspree handles spam protection automatically -->
+    
+    <style>
+        :root {
+            --bg: #fdfdfd;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: rgba(99, 102, 241, 0.1);
+            --shadow: 0 4px 6px rgba(99, 102, 241, 0.08);
+            --gradient-1: #14b8a6;
+            --gradient-2: #6366f1;
+            --gradient-3: #f59e0b;
+            --mesh-1: rgba(20, 184, 166, 0.15);
+            --mesh-2: rgba(99, 102, 241, 0.15);
+            --error: #ef4444;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0d1117;
+            --bg-card: #1e293b;
+            --text: #e5e7eb;
+            --text-secondary: #94a3b8;
+            --border: rgba(20, 184, 166, 0.2);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+			font-family: 'Inter', 'Roboto', sans-serif;
+			line-height: 1.6;
+			color: var(--text);
+			background: var(--bg);
+			min-height: 100vh;
+			padding: 20px;
+			position: relative;
+			overflow-y: auto; /* Enable vertical scrolling */
+			overflow-x: hidden;
+		}
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-card) 100%);
+            z-index: -2;
+        }
+
+        .wordcloud {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .wordcloud-word {
+            position: absolute;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            color: var(--gradient-2);
+            user-select: none;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .form-container {
+			background: var(--bg-card);
+			border-radius: 20px;
+			padding: 3rem;
+			max-width: 500px;
+			width: 100%;
+			margin: 2rem auto; /* Add margin for better spacing */
+			box-shadow: 0 20px 60px rgba(99, 102, 241, 0.1);
+			border: 1px solid var(--border);
+			position: relative;
+			overflow: hidden;
+		}
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .back-button:hover {
+            transform: scale(1.1) rotate(-10deg);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .required {
+            color: var(--error);
+        }
+
+        input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: var(--bg);
+            color: var(--text);
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--gradient-2);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        input.error {
+            border-color: var(--error);
+        }
+
+        input:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-message,
+        .warning-message {
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .error-message {
+            color: var(--error);
+        }
+
+        .warning-message {
+            color: var(--warning);
+        }
+
+        .error-message.show,
+        .warning-message.show {
+            display: block;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .submit-btn.loading {
+            color: transparent;
+        }
+
+        .spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        .submit-btn.loading .spinner {
+            display: block;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .success-message,
+        .rate-limit-message {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        .success-message {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.2));
+            border: 2px solid var(--success);
+            color: var(--success);
+        }
+
+        .rate-limit-message {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.2));
+            border: 2px solid var(--warning);
+            color: var(--warning);
+        }
+
+        .success-message.show,
+        .rate-limit-message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .privacy-note {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .privacy-note i {
+            color: var(--gradient-2);
+        }
+
+        .privacy-note a {
+            color: var(--gradient-2);
+            text-decoration: none;
+        }
+
+        .privacy-note a:hover {
+            text-decoration: underline;
+        }
+
+        .grecaptcha-badge {
+            visibility: hidden;
+        }
+
+        .recaptcha-notice {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        @media (max-width: 600px) {
+			body {
+				padding: 10px;
+			}
+			.form-container {
+				padding: 2rem 1.5rem;
+				margin: 1rem auto;
+				max-width: calc(100% - 20px);
+			}
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .back-button,
+			.theme-toggle {
+				width: 35px;
+				height: 35px;
+				font-size: 0.9rem;
+				position: fixed; /* Make buttons fixed on mobile */
+				z-index: 100;
+			}
+			.back-button {
+				top: 10px;
+				left: 10px;
+			}
+    
+			.theme-toggle {
+				top: 10px;
+				right: 10px;
+			}
+        }
+    </style>
+</head>
+<body>
+    <!-- IT Wordcloud Background -->
+    <div class="wordcloud" id="wordcloud">
+        <!-- Words will be generated by JavaScript -->
+    </div>
+
+    <a href="index.html" class="back-button" aria-label="Go back">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <i class="fas fa-sun" id="themeIcon"></i>
+    </button>
+
+    <div class="form-container">
+        <div class="form-header">
+            <div class="form-icon">
+                <i class="fas fa-file-pdf"></i>
+            </div>
+            <h1>Download CV</h1>
+            <p class="subtitle">Please provide your information to receive Mehran's CV</p>
+        </div>
+
+        <form id="cvForm" action="https://formspree.io/f/xpwyqnpv" method="POST" novalidate>
+            <!-- Formspree configuration -->
+            <input type="hidden" name="_subject" value="CV Download Request - m3hr4n.com">
+            <input type="hidden" name="_next" value="https://m3hr4n.com/contact-form.html?success=1">
+            
+            <div class="form-group">
+                <label for="name">Name <span class="required">*</span></label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    name="name" 
+                    required 
+                    placeholder="John Doe"
+                    autocomplete="name"
+                    maxlength="100"
+                    aria-required="true"
+                    aria-describedby="nameError"
+                >
+                <div class="error-message" id="nameError" role="alert">Please enter a valid name</div>
+                <div class="warning-message" id="nameWarning" role="alert">Name contains invalid characters</div>
+            </div>
+
+            <div class="form-group">
+                <label for="company">Company</label>
+                <input 
+                    type="text" 
+                    id="company" 
+                    name="company" 
+                    placeholder="Acme Corporation (Optional)"
+                    autocomplete="organization"
+                    maxlength="200"
+                    aria-describedby="companyWarning"
+                >
+                <div class="warning-message" id="companyWarning" role="alert">Company name contains invalid characters</div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email <span class="required">*</span></label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email" 
+                    required 
+                    placeholder="john@example.com"
+                    autocomplete="email"
+                    maxlength="254"
+                    aria-required="true"
+                    aria-describedby="emailError"
+                >
+                <div class="error-message" id="emailError" role="alert">Please enter a valid email address</div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span class="btn-text">Send CV to Email</span>
+                <div class="spinner"></div>
+            </button>
+
+            <div class="success-message" id="successMessage" role="alert">
+                <i class="fas fa-check-circle"></i> CV has been sent to your email! Check your inbox.
+            </div>
+
+            <div class="rate-limit-message" id="rateLimitMessage" role="alert">
+                <i class="fas fa-exclamation-triangle"></i> Too many requests. Please wait <span id="waitTime"></span> before trying again.
+            </div>
+        </form>
+
+        <p class="privacy-note">
+            <i class="fas fa-lock"></i> Your information is secure and will only be used to send you the CV. 
+            Read our <a href="privacy-policy.html">Privacy Policy</a>
+        </p>
+        <p class="recaptcha-notice">
+            This form is protected by Formspree's spam filtering.
+            <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>
+        </p>
+    </div>
+
+    <!-- The script-secure.js is the backend server, not client code -->
+    
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			// Initialize IT wordcloud
+			const initWordcloud = () => {
+				const wordcloud = document.getElementById('wordcloud');
+				const itWords = [
+					'DevOps', 'Kubernetes', 'Docker', 'Jenkins', 'GitLab', 'Ansible', 'Terraform',
+					'AWS', 'Azure', 'GCP', 'Linux', 'Python', 'Bash', 'Git', 'CI/CD',
+					'Monitoring', 'Prometheus', 'Grafana', 'ELK', 'Microservices', 'API',
+					'Infrastructure', 'Automation', 'Cloud', 'Security', 'Networking',
+					'Load Balancing', 'Scaling', 'Backup', 'Recovery', 'Performance',
+					'OpenShift', 'Helm', 'YAML', 'JSON', 'REST', 'gRPC', 'Redis',
+					'PostgreSQL', 'MongoDB', 'Nginx', 'Apache', 'SSL', 'TLS',
+					'SSH', 'VPN', 'Firewall', 'CDN', 'DNS', 'HTTPS', 'OAuth'
+				];
+
+				const sizes = ['12px', '14px', '16px', '18px', '20px', '22px', '24px'];
+				const colors = ['var(--gradient-1)', 'var(--gradient-2)', 'var(--text-secondary)'];
+
+				// Clear existing words
+				wordcloud.innerHTML = '';
+
+				// Generate random positioned words
+				for (let i = 0; i < 35; i++) {
+					const word = itWords[Math.floor(Math.random() * itWords.length)];
+					const wordElement = document.createElement('div');
+					wordElement.className = 'wordcloud-word';
+					wordElement.textContent = word;
+					wordElement.style.fontSize = sizes[Math.floor(Math.random() * sizes.length)];
+					wordElement.style.color = colors[Math.floor(Math.random() * colors.length)];
+					wordElement.style.left = Math.random() * 90 + '%';
+					wordElement.style.top = Math.random() * 90 + '%';
+					wordElement.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
+					wordcloud.appendChild(wordElement);
+				}
+			};
+
+			// Initialize wordcloud
+			initWordcloud();
+
+			// Initialize theme
+			const themeToggle = document.getElementById('themeToggle');
+			const themeIcon = document.getElementById('themeIcon');
+			const savedTheme = localStorage.getItem('theme') || 'light';
+
+			document.documentElement.setAttribute('data-theme', savedTheme);
+			themeIcon.className = savedTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+
+			themeToggle?.addEventListener('click', () => {
+				const currentTheme = document.documentElement.getAttribute('data-theme');
+				const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+
+				document.documentElement.setAttribute('data-theme', newTheme);
+				localStorage.setItem('theme', newTheme);
+				themeIcon.className = newTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+			});
+			
+			// Form handling
+			const form = document.getElementById('cvForm');
+			const submitBtn = document.getElementById('submitBtn');
+			const btnText = submitBtn.querySelector('.btn-text');
+			const spinner = submitBtn.querySelector('.spinner');
+			const successMessage = document.getElementById('successMessage');
+			const rateLimitMessage = document.getElementById('rateLimitMessage');
+			
+			// Input elements
+			const nameInput = document.getElementById('name');
+			const emailInput = document.getElementById('email');
+			const companyInput = document.getElementById('company');
+			
+			// Error elements
+			const nameError = document.getElementById('nameError');
+			const emailError = document.getElementById('emailError');
+			
+			// Validation functions
+			const validateEmail = (email) => {
+				const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+				return re.test(email);
+			};
+			
+			const validateName = (name) => {
+				return name.trim().length >= 2 && name.trim().length <= 100;
+			};
+			
+			// Real-time validation
+			nameInput?.addEventListener('blur', () => {
+				if (!validateName(nameInput.value)) {
+					nameInput.classList.add('error');
+					nameError.classList.add('show');
+					nameError.textContent = 'Please enter a valid name (2-100 characters)';
+				} else {
+					nameInput.classList.remove('error');
+					nameError.classList.remove('show');
+				}
+			});
+			
+			emailInput?.addEventListener('blur', () => {
+				if (!validateEmail(emailInput.value)) {
+					emailInput.classList.add('error');
+					emailError.classList.add('show');
+					emailError.textContent = 'Please enter a valid email address';
+				} else {
+					emailInput.classList.remove('error');
+					emailError.classList.remove('show');
+				}
+			});
+			
+			// Check for success parameter in URL
+			const urlParams = new URLSearchParams(window.location.search);
+			if (urlParams.get('success') === '1') {
+				successMessage.classList.add('show');
+				// Remove success parameter from URL
+				window.history.replaceState({}, document.title, window.location.pathname);
+			}
+
+			// Form submission - let Formspree handle the submission
+			form?.addEventListener('submit', async (e) => {
+				// Validate all fields before submission
+				let isValid = true;
+
+				// Clear previous messages
+				successMessage.classList.remove('show');
+				rateLimitMessage.classList.remove('show');
+
+				if (!validateName(nameInput.value)) {
+					e.preventDefault();
+					nameInput.classList.add('error');
+					nameError.classList.add('show');
+					nameError.textContent = 'Please enter a valid name (2-100 characters)';
+					isValid = false;
+				}
+
+				if (!validateEmail(emailInput.value)) {
+					e.preventDefault();
+					emailInput.classList.add('error');
+					emailError.classList.add('show');
+					emailError.textContent = 'Please enter a valid email address';
+					isValid = false;
+				}
+
+				if (!isValid) {
+					return;
+				}
+
+				// Formspree will handle email field automatically
+
+				// Show loading state
+				submitBtn.disabled = true;
+				submitBtn.classList.add('loading');
+				btnText.textContent = 'Sending...';
+
+				// Let the form submit naturally to Formspree
+				// Formspree will handle the redirect to success page
+			});
+			
+			// Clear error on input
+			nameInput?.addEventListener('input', () => {
+				nameInput.classList.remove('error');
+				nameError.classList.remove('show');
+			});
+			
+			emailInput?.addEventListener('input', () => {
+				emailInput.classList.remove('error');
+				emailError.classList.remove('show');
+			});
+		});
+	</script>
+</body>
+</html>

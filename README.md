@@ -9,7 +9,8 @@ Live: **[m3hr4n.com](https://m3hr4n.com)** · Legacy v1: **[m3hr4n.com/v/v1](htt
 
 | Version | Date | Notes |
 |---------|------|-------|
-| **v2.1** | May 2026 | Content update: googleipmonitor card refresh, footer © 2026, Legacy v1 link, `.htaccess` production config |
+| **v3.0.0** *(in development)* | Jun 2026 | Dark glassmorphism redesign, single dark/light theme (replaces season switcher), perf pass, client-side features, SEO/PWA. Pre-v3 baseline archived at `/v/v3-base`. See `V3-PLAN.md`. |
+| v2.1 | May 2026 | Content update: googleipmonitor card refresh, footer © 2026, Legacy v1 link, `.htaccess` production config |
 | v2.0 | Apr 2025 | Season theme system (🌸☀️🍂❄️), scroll progress bar, skeleton loaders, dynamic experience counter, 8-project slideshow |
 | v1.0 | 2024 | Initial portfolio — dark/light toggle, basic slideshow |
 

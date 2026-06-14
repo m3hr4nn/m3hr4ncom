@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    
+    <title>Privacy Policy - Mehran Naderizadeh</title>
+    <meta name="description" content="Privacy Policy for Mehran Naderizadeh's portfolio website. Learn how we collect, use, and protect your personal information.">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #fdfdfd;
+            --bg-card: #ffffff;
+            --text: #1e293b;
+            --text-secondary: #64748b;
+            --border: rgba(99, 102, 241, 0.1);
+            --gradient-1: #14b8a6;
+            --gradient-2: #6366f1;
+            --gradient-3: #f59e0b;
+            --mesh-1: rgba(20, 184, 166, 0.15);
+            --mesh-2: rgba(99, 102, 241, 0.15);
+            --accent: #6366f1;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0d1117;
+            --bg-card: #1e293b;
+            --text: #e5e7eb;
+            --text-secondary: #94a3b8;
+            --border: rgba(20, 184, 166, 0.2);
+            --accent: #818cf8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+            transition: background 0.3s ease, color 0.3s ease;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            width: 150%;
+            height: 150%;
+            top: -25%;
+            left: -25%;
+            background: 
+                radial-gradient(circle at 20% 50%, var(--mesh-1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, var(--mesh-2) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .back-link:hover {
+            background: linear-gradient(135deg, var(--mesh-1), var(--mesh-2));
+            transform: translateX(-5px);
+        }
+
+        .theme-toggle {
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1) rotate(180deg);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .policy-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .policy-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .last-updated {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .policy-content {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.08);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--mesh-1), var(--mesh-2));
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            margin: 1.5rem 0;
+        }
+
+        .highlight p {
+            margin-bottom: 0;
+            color: var(--text);
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, var(--mesh-1), var(--mesh-2));
+            padding: 2rem;
+            border-radius: 12px;
+            margin-top: 2rem;
+        }
+
+        .contact-info h3 {
+            margin-top: 0;
+        }
+
+        .contact-info a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .policy-content {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i> Back to Portfolio
+            </a>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                <i class="fas fa-sun" id="themeIcon"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="policy-header">
+            <div class="policy-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h1>Privacy Policy</h1>
+            <p class="last-updated">Last updated: January 2025</p>
+        </div>
+
+        <div class="policy-content">
+            <div class="highlight">
+                <p><strong>Your privacy is important to me.</strong> This Privacy Policy explains how I collect, use, and protect your information when you visit my portfolio website at m3hr4n.com.</p>
+            </div>
+
+            <h2>1. Information I Collect</h2>
+            
+            <h3>1.1 Information You Provide</h3>
+            <p>When you request my CV through the contact form, I collect:</p>
+            <ul>
+                <li><strong>Name:</strong> To address you properly in communications</li>
+                <li><strong>Email Address:</strong> To send you my CV and respond to your inquiry</li>
+                <li><strong>Company Name (Optional):</strong> To understand your professional context</li>
+            </ul>
+
+            <h3>1.2 Information Automatically Collected</h3>
+            <p>When you visit my website, I may automatically collect:</p>
+            <ul>
+                <li>Browser type and version</li>
+                <li>Operating system</li>
+                <li>IP address (for security and spam prevention)</li>
+                <li>Date and time of visit</li>
+                <li>Pages visited and time spent on pages</li>
+            </ul>
+
+            <h3>1.3 Cookies and Local Storage</h3>
+            <p>I use minimal cookies and local storage for:</p>
+            <ul>
+                <li><strong>Theme Preference:</strong> To remember if you prefer dark or light mode</li>
+                <li><strong>Security:</strong> To prevent spam and abuse through rate limiting</li>
+                <li><strong>Analytics (Optional):</strong> Only if you consent, to understand how visitors use my site</li>
+            </ul>
+
+            <h2>2. How I Use Your Information</h2>
+            <p>I use the collected information solely for:</p>
+            <ul>
+                <li>Sending you my CV when requested</li>
+                <li>Responding to your professional inquiries</li>
+                <li>Protecting the website from spam and abuse</li>
+                <li>Improving the website's functionality and user experience</li>
+                <li>Maintaining security and preventing unauthorized access</li>
+            </ul>
+
+            <h2>3. Information Sharing</h2>
+            <div class="highlight">
+                <p><strong>I do not sell, rent, or share your personal information with third parties for marketing purposes.</strong></p>
+            </div>
+            
+            <p>I may share information only in these limited circumstances:</p>
+            <ul>
+                <li>When required by law or legal process</li>
+                <li>To protect against fraud or security threats</li>
+                <li>With service providers who help operate the website (e.g., email service, hosting), under strict confidentiality agreements</li>
+            </ul>
+
+            <h2>4. Data Security</h2>
+            <p>I implement security measures to protect your information:</p>
+            <ul>
+                <li>HTTPS encryption for all data transmission</li>
+                <li>Rate limiting to prevent abuse</li>
+                <li>Input sanitization to prevent injection attacks</li>
+                <li>Regular security updates and monitoring</li>
+                <li>Secure storage with encryption for sensitive data</li>
+            </ul>
+
+            <h2>5. Data Retention</h2>
+            <p>I retain your personal information for:</p>
+            <ul>
+                <li><strong>Contact Form Data:</strong> Up to 6 months for follow-up purposes</li>
+                <li><strong>Email Communications:</strong> As long as necessary for professional correspondence</li>
+                <li><strong>Analytics Data:</strong> Anonymized and aggregated for up to 2 years</li>
+            </ul>
+
+            <h2>6. Your Rights</h2>
+            <p>You have the right to:</p>
+            <ul>
+                <li><strong>Access:</strong> Request a copy of the information I have about you</li>
+                <li><strong>Correction:</strong> Request corrections to inaccurate information</li>
+                <li><strong>Deletion:</strong> Request deletion of your personal information</li>
+                <li><strong>Opt-out:</strong> Unsubscribe from any communications</li>
+                <li><strong>Data Portability:</strong> Receive your data in a portable format</li>
+            </ul>
+
+            <h2>7. Third-Party Services</h2>
+            <p>This website may use the following third-party services:</p>
+            <ul>
+                <li><strong>Google reCAPTCHA:</strong> For spam protection (subject to Google's Privacy Policy)</li>
+                <li><strong>Google Fonts:</strong> For typography (loaded from Google's CDN)</li>
+                <li><strong>Font Awesome:</strong> For icons (loaded from CDN)</li>
+                <li><strong>GitHub Pages:</strong> For hosting (if applicable)</li>
+            </ul>
+
+            <h2>8. Children's Privacy</h2>
+            <p>This website is not intended for children under 16 years of age. I do not knowingly collect personal information from children under 16.</p>
+
+            <h2>9. International Data Transfers</h2>
+            <p>If you access this website from outside Iran, please note that your information may be transferred to and processed in Iran or other countries where I or my service providers operate.</p>
+
+            <h2>10. Changes to This Policy</h2>
+            <p>I may update this Privacy Policy from time to time. The "Last updated" date at the top indicates when the policy was last revised. Continued use of the website after changes constitutes acceptance of the updated policy.</p>
+
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p>If you have questions about this Privacy Policy or your personal information, please contact me at:</p>
+                <p>
+                    <strong>Email:</strong> <a href="mailto:mehran.n1995@gmail.com">mehran.n1995@gmail.com</a><br>
+                    <strong>Website:</strong> <a href="https://m3hr4n.com">m3hr4n.com</a><br>
+                    <strong>LinkedIn:</strong> <a href="https://linkedin.com/in/m3hr4nn" target="_blank" rel="noopener">linkedin.com/in/m3hr4nn</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Mehran Naderizadeh. All rights reserved.</p>
+        <p><a href="index.html">Home</a> | <a href="contact-form.html">Contact</a></p>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const initTheme = () => {
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = document.getElementById('themeIcon');
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            themeIcon.className = savedTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+            
+            themeToggle?.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeIcon.className = newTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+            });
+        };
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', initTheme);
+    </script>
+</body>
+</html>

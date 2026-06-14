@@ -12,34 +12,63 @@ const updateExperience = () => {
     });
 };
 
-// ─── Theme (dark default / light toggle) ─────────────────────────────────────
-// v3: single dark-glass theme with an optional light variant. The pre-paint
-// bootstrap in index.html sets data-theme before first paint to avoid a flash.
-const applyTheme = (theme) => {
-    const t = theme === 'light' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', t);
-    try { localStorage.setItem('theme', t); } catch (e) {}
-    // Sync the toggle icon: show the action it will perform.
-    const icon = document.getElementById('themeIcon');
-    if (icon) {
-        icon.classList.toggle('fa-sun', t === 'dark');   // dark now → offer light (sun)
-        icon.classList.toggle('fa-moon', t === 'light');  // light now → offer dark (moon)
-    }
-    const btn = document.getElementById('themeToggle');
-    if (btn) btn.setAttribute('aria-label', `Switch to ${t === 'dark' ? 'light' : 'dark'} theme`);
+// ─── Season Theme ────────────────────────────────────────────────────────────
+const SEASONS = ['spring', 'summer', 'autumn', 'winter'];
+
+const getSeasonByMonth = () => {
+    const m = new Date().getMonth(); // 0-11
+    if (m >= 2 && m <= 4) return 'spring';
+    if (m >= 5 && m <= 7) return 'summer';
+    if (m >= 8 && m <= 10) return 'autumn';
+    return 'winter';
 };
 
-const initTheme = () => {
-    let saved;
-    try { saved = localStorage.getItem('theme'); } catch (e) {}
-    applyTheme(saved === 'light' ? 'light' : 'dark');
-
-    const btn = document.getElementById('themeToggle');
-    if (!btn) return;
-    btn.addEventListener('click', () => {
-        const current = document.documentElement.getAttribute('data-theme');
-        applyTheme(current === 'dark' ? 'light' : 'dark');
+const applyTheme = (season) => {
+    document.documentElement.setAttribute('data-theme', season);
+    localStorage.setItem('theme', season);
+    // Update active button
+    document.querySelectorAll('.season-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.season === season);
     });
+};
+
+const initSeasonTheme = () => {
+    const saved = localStorage.getItem('theme');
+    const season = SEASONS.includes(saved) ? saved : getSeasonByMonth();
+    applyTheme(season);
+
+    // Build the season switcher bar (replaces old theme toggle button)
+    const navActions = document.querySelector('.nav-actions');
+    if (!navActions) return;
+
+    // Remove old theme toggle button
+    const oldToggle = document.getElementById('themeToggle');
+    if (oldToggle) oldToggle.remove();
+
+    // Create season bar
+    const bar = document.createElement('div');
+    bar.className = 'season-bar';
+    bar.setAttribute('aria-label', 'Choose season theme');
+
+    const icons = { spring: '🌸', summer: '☀️', autumn: '🍂', winter: '❄️' };
+    SEASONS.forEach(s => {
+        const btn = document.createElement('button');
+        btn.className = 'season-btn';
+        btn.dataset.season = s;
+        btn.title = s.charAt(0).toUpperCase() + s.slice(1);
+        btn.setAttribute('aria-label', `${s} theme`);
+        btn.textContent = icons[s];
+        btn.addEventListener('click', () => applyTheme(s));
+        bar.appendChild(btn);
+    });
+
+    // Insert before hamburger (if exists) or append
+    const hamburger = document.getElementById('hamburger');
+    if (hamburger) {
+        navActions.insertBefore(bar, hamburger);
+    } else {
+        navActions.appendChild(bar);
+    }
 };
 
 // ─── Navigation ──────────────────────────────────────────────────────────────
@@ -236,8 +265,8 @@ const revealContent = () => {
 // ─── Init ────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     updateExperience();
-    revealContent();
-    initTheme();
+	revealContent();
+    initSeasonTheme();
     initNavigation();
     initSmoothScroll();
     initAnimations();

@@ -1,0 +1,82 @@
+# ── m3hr4n.com — Apache production config ────────────────────────────────────
+# Static site on cPanel. Mirrors the security headers in index.html's <meta>.
+
+# ── Force HTTPS + non-www → canonical ───────────────────────────────────────
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # HTTP → HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # www → non-www
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# ── Security headers ────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    Header always set X-Frame-Options "DENY"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://www.google.com https://formspree.io; frame-src https://www.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formspree.io; upgrade-insecure-requests;"
+    # Don't leak the server signature
+    Header unset X-Powered-By
+    Header always unset X-Powered-By
+</IfModule>
+ServerSignature Off
+
+# ── Compression ─────────────────────────────────────────────────────────────
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml application/xml
+</IfModule>
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/javascript application/javascript application/json image/svg+xml application/xml application/manifest+json
+</IfModule>
+
+# ── Cache policy ────────────────────────────────────────────────────────────
+<IfModule mod_expires.c>
+    ExpiresActive On
+    # HTML: revalidate (content changes between deploys)
+    ExpiresByType text/html "access plus 0 seconds"
+    # CSS / JS: 1 week (bump filename or query string on change)
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType text/javascript "access plus 1 week"
+    # Images / fonts: 1 year (immutable assets)
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/pdf "access plus 1 month"
+</IfModule>
+<IfModule mod_headers.c>
+    <FilesMatch "\.(css|js|png|jpe?g|webp|svg|ico|woff2|pdf)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    <FilesMatch "\.html$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+# ── Bad-bot / injection blocking ────────────────────────────────────────────
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP_USER_AGENT} (ahrefsbot|semrushbot|mj12bot|dotbot|petalbot|bytespider|gptbot) [NC]
+    RewriteRule ^ - [F,L]
+    # Block obvious injection patterns in the query string
+    RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC,OR]
+    RewriteCond %{QUERY_STRING} (\.\./|\.\.%2f) [NC,OR]
+    RewriteCond %{QUERY_STRING} (union.*select|base64_(en|de)code) [NC]
+    RewriteRule ^ - [F,L]
+</IfModule>
+
+# ── Hardening ───────────────────────────────────────────────────────────────
+Options -Indexes
+<FilesMatch "(^\.|error_log|\.tar\.gz$|\.bak$)">
+    Require all denied
+</FilesMatch>
+
+# ── Custom error pages (optional) ───────────────────────────────────────────
+ErrorDocument 404 /index.html

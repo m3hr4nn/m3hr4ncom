@@ -1,16 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Pre-paint theme bootstrap: apply saved theme before first paint (no flash) -->
-    <script>
-        (function () {
-            try {
-                var t = localStorage.getItem('theme');
-                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
-            } catch (e) {}
-        })();
-    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
@@ -36,9 +27,6 @@
     <title>Mehran Naderizadeh - DevOps Engineer Portfolio</title>
     <meta name="description" content="DevOps Engineer with 6+ years experience managing 35000+ computing resources. Expertise in Kubernetes, Docker, CI/CD, and cloud infrastructure.">
     <meta name="robots" content="index, follow">
-    <meta name="version" content="3.0.0">
-    <meta name="color-scheme" content="dark light">
-    <meta name="theme-color" content="#050506">
     
     <!-- Preconnect to external domains -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -50,7 +38,7 @@
           rel="stylesheet"
           integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
           crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Local styles -->
     <link rel="stylesheet" href="style.css">
@@ -95,8 +83,8 @@
             </div>
             
             <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme" title="Toggle theme">
-                    <i class="fas fa-moon" id="themeIcon" aria-hidden="true"></i>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <i class="fas fa-sun" id="themeIcon"></i>
                 </button>
                 <button class="hamburger" id="hamburger" aria-label="Menu">
                     <span></span>
