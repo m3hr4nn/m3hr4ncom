@@ -48,30 +48,76 @@
 }
 
 [data-theme="light"] {
-    --bg-deep: #e9ecf3;
-    --bg-base: #f5f6fb;
+    /* Dutch palette: white base · cobalt blue #21468B · oranje #FF6A13 · flag red #AE1C28.
+       Functional text/links stay blue (high contrast); orange/red live in decorative
+       elements (glows, gradients, icons, ambient blobs, flag bar). */
+    --bg-deep: #dde5f1;
+    --bg-base: #f4f7fd;
     --bg-elevated: #ffffff;
 
-    --surface: rgba(255, 255, 255, 0.72);
-    --surface-2: rgba(255, 255, 255, 0.9);
-    --border: rgba(15, 23, 42, 0.1);
-    --border-strong: rgba(15, 23, 42, 0.18);
+    --surface: rgba(255, 255, 255, 0.74);
+    --surface-2: rgba(255, 255, 255, 0.92);
+    --border: rgba(33, 70, 139, 0.14);
+    --border-strong: rgba(33, 70, 139, 0.26);
 
-    --foreground: #0f172a;
-    --foreground-muted: #5b6478;
+    --foreground: #142142;          /* deep navy ink */
+    --foreground-muted: #4a5878;
 
-    --accent: #4853c4;
-    --accent-2: #5e6ad2;
-    --accent-glow: rgba(72, 83, 196, 0.18);
+    --accent: #21468b;              /* Dutch flag blue — links, text, borders (strong contrast) */
+    --accent-2: #2d5bd0;            /* brighter cobalt for gradient pop, still readable */
+    --accent-glow: rgba(255, 106, 19, 0.22);   /* oranje glow */
 
-    --blob-1: rgba(94, 106, 210, 0.18);
-    --blob-2: rgba(45, 212, 191, 0.14);
-    --blob-3: rgba(139, 147, 232, 0.16);
+    --blob-1: rgba(174, 28, 40, 0.16);   /* flag red */
+    --blob-2: rgba(33, 70, 139, 0.18);   /* flag blue */
+    --blob-3: rgba(255, 106, 19, 0.18);  /* oranje */
 
-    --shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
-    --shadow-glow: 0 0 0 1px var(--border), 0 18px 40px rgba(15, 23, 42, 0.12);
+    --shadow: 0 10px 30px rgba(20, 33, 66, 0.10);
+    --shadow-glow: 0 0 0 1px var(--border), 0 18px 40px rgba(20, 33, 66, 0.14);
     color-scheme: light;
+
+    /* Dutch decorative tokens */
+    --dutch-orange: #ff6a13;        /* vivid — glows, gradients, icon chips, blobs */
+    --dutch-orange-ink: #c2410c;    /* deeper — safe for orange *text* on white */
+    --dutch-red: #ae1c28;
+    --dutch-blue: #21468b;
 }
+
+/* ── Dutch light-theme accents (orange/red threaded through decorative bits) ── */
+/* A third ambient blob (oranje) — light theme only */
+[data-theme="light"]::after {
+    content: ""; position: fixed; z-index: -2;
+    width: 44vw; height: 44vw; top: 35vh; left: 30vw;
+    border-radius: 50%; filter: blur(90px); pointer-events: none;
+    background: radial-gradient(circle at center, var(--blob-3), transparent 70%);
+    animation: blobDrift 30s var(--easing) infinite alternate;
+}
+[data-theme="light"] .hero-greeting { color: var(--dutch-orange-ink); }
+[data-theme="light"] .hero-name {
+    background: linear-gradient(120deg, var(--foreground) 22%, var(--dutch-blue) 55%, var(--dutch-orange));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+/* Primary button: blue body (white text stays readable) + oranje glow */
+[data-theme="light"] .btn-primary {
+    background: linear-gradient(120deg, var(--dutch-blue), #2d5bd0);
+    box-shadow: 0 8px 24px rgba(255, 106, 19, 0.30);
+}
+[data-theme="light"] .btn-primary:hover { box-shadow: 0 14px 34px rgba(255, 106, 19, 0.40); }
+/* Icon chips in oranje */
+[data-theme="light"] .skill-icon,
+[data-theme="light"] .project-icon,
+[data-theme="light"] .contact-item > i {
+    color: var(--dutch-orange-ink);
+    background: rgba(255, 106, 19, 0.12);
+}
+/* Signature: red-white-blue flag bar under each section title */
+[data-theme="light"] .section-title::after {
+    width: 84px; height: 5px;
+    background: linear-gradient(90deg, var(--dutch-red) 0 33.33%, #ffffff 33.33% 66.66%, var(--dutch-blue) 66.66% 100%);
+    border: 1px solid rgba(33, 70, 139, 0.22);
+    box-shadow: 0 2px 10px rgba(20, 33, 66, 0.12);
+}
+/* Social icons lift to oranje on hover */
+[data-theme="light"] .social-link:hover { border-color: var(--dutch-orange); color: var(--dutch-orange-ink); }
 
 /* ── Reset ─────────────────────────────────────────────────────────────────── */
 *,
@@ -486,6 +532,51 @@ body::after {
     background: var(--border-strong);
 }
 .slideshow-dots button.active { background: var(--accent); width: 22px; border-radius: var(--radius-pill); }
+
+/* ── Featured case-study "window" ──────────────────────────────────────────── */
+.casestudy-window {
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 0;
+    background: var(--surface);
+    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
+    border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; box-shadow: var(--shadow);
+    transition: transform var(--t-med) var(--easing), border-color var(--t-med), box-shadow var(--t-med);
+}
+.casestudy-window:hover { transform: translateY(-6px); border-color: var(--border-strong); box-shadow: var(--shadow-glow); }
+.casestudy-window-body { padding: 2.25rem; }
+.casestudy-eyebrow { font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-2); letter-spacing: 0.04em; }
+.casestudy-window-body h3 { font-size: 1.5rem; margin: 0.6rem 0 0.9rem; letter-spacing: -0.01em; }
+.casestudy-window-body p { color: var(--foreground-muted); margin-bottom: 1.1rem; }
+.casestudy-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+.casestudy-tech span {
+    font-family: var(--font-mono); font-size: 0.78rem; padding: 0.3rem 0.7rem;
+    border-radius: var(--radius-pill); background: var(--surface-2); border: 1px solid var(--border); color: var(--foreground-muted);
+}
+.casestudy-cta { font-family: var(--font-mono); font-weight: 500; color: var(--accent-2); display: inline-flex; align-items: center; gap: 0.5rem; transition: gap var(--t-fast) var(--easing); }
+.casestudy-window:hover .casestudy-cta { gap: 0.85rem; }
+
+/* Right-side visual: 3 glowing DC chips on a gradient, hinting at the 3D scene */
+.casestudy-window-visual {
+    position: relative; display: flex; flex-direction: column; gap: 0.9rem;
+    align-items: center; justify-content: center; padding: 2rem;
+    background: radial-gradient(circle at 70% 30%, var(--accent-glow), transparent 60%), var(--bg-elevated);
+    border-left: 1px solid var(--border);
+}
+.casestudy-window-visual .cs-dc {
+    font-family: var(--font-mono); font-size: 0.85rem; color: var(--foreground);
+    padding: 0.7rem 1.4rem; border-radius: var(--radius-sm);
+    background: var(--surface-2); border: 1px solid var(--border-strong);
+    box-shadow: 0 0 18px var(--accent-glow);
+}
+.casestudy-window-visual .cs-dc:nth-child(2) { transform: translateX(28px); }
+.casestudy-window-visual .cs-dc:nth-child(3) { transform: translateX(-20px); }
+
+@media (max-width: 768px) {
+    .casestudy-window { grid-template-columns: 1fr; }
+    .casestudy-window-visual { flex-direction: row; border-left: none; border-top: 1px solid var(--border); }
+    .casestudy-window-visual .cs-dc:nth-child(2),
+    .casestudy-window-visual .cs-dc:nth-child(3) { transform: none; }
+}
 
 /* ── Experience timeline ───────────────────────────────────────────────────── */
 .timeline { position: relative; max-width: 820px; margin: 0 auto; padding-left: 2rem; }
