@@ -17,6 +17,12 @@ error_log
 allfiles.tar.gz
 *.tar.gz
 
+# CV PDFs + sources — keep local, never commit/publish from the repo (PII).
+# The live CV is served from cPanel directly, not via git. **/ covers version
+# archives too (e.g. v/v3-base/assets/).
+**/assets/*.pdf
+**/assets/*.tex
+
 # Backup and temp files
 *.bak
 *.swp
