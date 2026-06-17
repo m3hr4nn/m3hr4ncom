@@ -7,28 +7,36 @@
 /* ── Design tokens ─────────────────────────────────────────────────────────── */
 :root,
 [data-theme="dark"] {
-    --bg-deep: #020203;
-    --bg-base: #050506;
-    --bg-elevated: #0a0a0c;
+    /* German palette: near-black base · flag red #DD0000 · flag gold #FFCE00.
+       Gold is the high-contrast text/link accent; red is body/borders/glow.
+       (Pairs with the Dutch light theme — the two modes = the two target markets.) */
+    --bg-deep: #060605;
+    --bg-base: #0b0b0c;
+    --bg-elevated: #131214;
 
     --surface: rgba(255, 255, 255, 0.05);
     --surface-2: rgba(255, 255, 255, 0.08);
     --border: rgba(255, 255, 255, 0.08);
     --border-strong: rgba(255, 255, 255, 0.16);
 
-    --foreground: #ededef;
-    --foreground-muted: #8a8f98;
+    --foreground: #f4f2ee;
+    --foreground-muted: #9a958c;
 
-    --accent: #5e6ad2;
-    --accent-2: #8b93e8;
-    --accent-glow: rgba(94, 106, 210, 0.25);
+    --accent: #dd0000;              /* German flag red — button body, borders, scroll bar, timeline */
+    --accent-2: #ffce00;            /* German flag gold — text, links, icons (high contrast on black) */
+    --accent-glow: rgba(255, 206, 0, 0.22);    /* gold glow */
 
-    --blob-1: rgba(94, 106, 210, 0.18);
-    --blob-2: rgba(45, 212, 191, 0.12);
-    --blob-3: rgba(139, 147, 232, 0.12);
+    --blob-1: rgba(221, 0, 0, 0.16);     /* flag red */
+    --blob-2: rgba(255, 206, 0, 0.12);   /* flag gold */
+    --blob-3: rgba(221, 0, 0, 0.10);
 
-    --shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
-    --shadow-glow: 0 0 0 1px var(--border), 0 20px 50px rgba(0, 0, 0, 0.55);
+    --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 0 1px var(--border), 0 20px 50px rgba(0, 0, 0, 0.6);
+
+    /* German decorative tokens */
+    --german-red: #dd0000;
+    --german-gold: #ffce00;
+    --german-black: #1a1a1a;
 
     --radius: 16px;
     --radius-sm: 10px;
@@ -45,6 +53,30 @@
     --container: 1200px;
     --nav-h: 72px;
     color-scheme: dark;
+}
+
+/* ── German dark-theme accents (gold text + red/gold decorative, flag bar) ──── */
+/* Third ambient blob (gold) — dark theme */
+[data-theme="dark"]::after {
+    content: ""; position: fixed; z-index: -2;
+    width: 44vw; height: 44vw; top: 30vh; right: 24vw;
+    border-radius: 50%; filter: blur(90px); pointer-events: none;
+    background: radial-gradient(circle at center, var(--blob-2), transparent 70%);
+    animation: blobDrift2 30s var(--easing) infinite alternate;
+}
+/* Primary button: red body (white text stays readable) + gold glow */
+[data-theme="dark"] .btn-primary {
+    background: linear-gradient(120deg, var(--german-red), #a30000);
+    box-shadow: 0 8px 24px rgba(255, 206, 0, 0.28);
+}
+[data-theme="dark"] .btn-primary:hover { box-shadow: 0 14px 34px rgba(255, 206, 0, 0.4); }
+/* Signature: black-red-gold flag bar under each section title
+   (outlined so the dark segment reads against the near-black background) */
+[data-theme="dark"] .section-title::after {
+    width: 84px; height: 5px;
+    background: linear-gradient(90deg, var(--german-black) 0 33.33%, var(--german-red) 33.33% 66.66%, var(--german-gold) 66.66% 100%);
+    border: 1px solid rgba(255, 206, 0, 0.28);
+    box-shadow: 0 0 16px rgba(255, 206, 0, 0.25);
 }
 
 [data-theme="light"] {
