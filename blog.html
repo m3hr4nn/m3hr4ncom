@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <!-- Pre-paint theme bootstrap: apply saved theme before first paint (no flash) -->
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('theme');
+                document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+            } catch (e) {}
+        })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Security Headers (also configure on server) -->
+    <meta http-equiv="Content-Security-Policy" content="
+        default-src 'self';
+        script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com;
+        style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+        font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com;
+        img-src 'self' data: https:;
+        connect-src 'self';
+        frame-ancestors 'none';
+        base-uri 'self';
+        form-action 'self';
+        upgrade-insecure-requests;
+    ">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+
+    <title>Blog — Engineering Write-ups & Case Studies | Mehran Naderizadeh</title>
+    <meta name="description" content="DevOps & infrastructure engineering write-ups, case studies, and lessons from the field by Mehran Naderizadeh — multi-site disaster recovery, Kubernetes, automation and more.">
+    <meta name="robots" content="index, follow">
+    <meta name="color-scheme" content="dark light">
+    <meta name="theme-color" content="#050506">
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          rel="stylesheet"
+          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+          crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="index.html" class="logo-container" aria-label="Home">
+                    <img src="logo.png" alt="Mehran Naderizadeh Logo" class="nav-logo" loading="lazy">
+                </a>
+            </div>
+
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#skills" class="nav-link">Skills</a>
+                <a href="index.html#portfolio" class="nav-link">Portfolio</a>
+                <a href="index.html#opensource" class="nav-link">Open Source</a>
+                <a href="blog.html" class="nav-link active">Blog</a>
+                <a href="index.html#experience" class="nav-link">Experience</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+            </div>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle light/dark theme" title="Toggle theme">
+                    <i class="fas fa-moon" id="themeIcon" aria-hidden="true"></i>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <a href="index.html#about" class="mobile-link">About</a>
+            <a href="index.html#skills" class="mobile-link">Skills</a>
+            <a href="index.html#portfolio" class="mobile-link">Portfolio</a>
+            <a href="index.html#opensource" class="mobile-link">Open Source</a>
+            <a href="blog.html" class="mobile-link">Blog</a>
+            <a href="index.html#experience" class="mobile-link">Experience</a>
+            <a href="index.html#contact" class="mobile-link">Contact</a>
+        </div>
+    </div>
+
+    <main class="blog-page">
+        <header class="blog-header">
+            <p class="blog-eyebrow">The Blog</p>
+            <h1>Engineering Write-ups &amp; Case Studies</h1>
+            <p>Notes from building and running large-scale infrastructure — deep dives, real project case studies, and lessons learned in the field.</p>
+        </header>
+
+        <div class="blog-list">
+
+            <!-- Featured post: Multi-Site DR case study -->
+            <a class="blog-post-card featured" href="case-studies/multi-site-dr.html" aria-label="Read: Multi-Site Disaster Recovery across 3 Data Centers">
+                <div class="blog-post-meta">
+                    <span class="blog-badge">Featured</span>
+                    <span class="blog-post-tag">Reliability Engineering</span>
+                    <span>·</span>
+                    <span>Interactive 3D</span>
+                    <span>·</span>
+                    <span>2023</span>
+                </div>
+                <h2>Multi-Site Disaster Recovery across 3 Data Centers</h2>
+                <p>How a telecom CBS/CRM platform was made to survive the loss of an entire data center — failover design, cross-site integration, and the tradeoffs behind it. Includes an interactive 3D topology you can orbit and click.</p>
+                <div class="blog-post-tech"><span>High Availability</span><span>Distributed Storage</span><span>Failover</span><span>3 Sites</span></div>
+                <span class="blog-read-more">Read the case study <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+            </a>
+
+            <!-- More posts land here -->
+            <div class="blog-soon">More write-ups are on the way — subscribe via the contact page or check back soon.</div>
+
+        </div>
+    </main>
+
+    <!-- Footer (mirrors the homepage) -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="footerYear">2026</span> Mehran Naderizadeh. All rights reserved.</p>
+            <p>
+                <a href="index.html">Home</a> |
+                <a href="blog.html">Blog</a> |
+                <a href="index.html#contact">Contact</a> |
+                <a href="privacy-policy.html">Privacy Policy</a> |
+                <a href="terms.html">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

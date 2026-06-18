@@ -65,8 +65,14 @@
 .cs-stage.is-fallback .cs-stage-hint { display: none; }
 .cs-stage.is-fallback .cs-fallback { display: grid; }
 
+/* ── Header (between the 3D hero and the article body) ─────────────────────── */
+.cs-header { max-width: 820px; margin: 0 auto; padding: 3.5rem 1.5rem 0; }
+.cs-header .cs-title { margin-top: 0.5rem; }
+.cs-header .cs-lede { margin-bottom: 1.75rem; }
+.cs-header .cs-meta { margin-bottom: 0; }
+
 /* ── Article body ──────────────────────────────────────────────────────────── */
-.cs-article { max-width: 820px; margin: 0 auto; padding: 4rem 1.5rem; }
+.cs-article { max-width: 820px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
 .cs-eyebrow { font-family: var(--font-mono); color: var(--accent-2); font-size: 0.85rem; letter-spacing: 0.05em; }
 .cs-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; margin: 0.5rem 0 1rem; }
 .cs-lede { font-size: 1.15rem; color: var(--foreground-muted); margin-bottom: 2.5rem; }

@@ -610,6 +610,50 @@ body::after {
     .casestudy-window-visual .cs-dc:nth-child(3) { transform: none; }
 }
 
+/* ── Blog index page ───────────────────────────────────────────────────────── */
+.blog-page { padding-top: var(--nav-h); }
+.blog-header { max-width: 820px; margin: 0 auto; padding: calc(var(--nav-h) + 1rem) 1.5rem 0; text-align: center; }
+.blog-eyebrow { font-family: var(--font-mono); color: var(--accent-2); font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase; }
+.blog-header h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; letter-spacing: -0.02em; margin: 0.6rem 0 0.8rem; }
+.blog-header p { color: var(--foreground-muted); font-size: 1.1rem; }
+
+.blog-list { max-width: 820px; margin: 0 auto; padding: 3rem 1.5rem 5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+.blog-post-card {
+    display: block; position: relative;
+    background: var(--surface);
+    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
+    border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 2rem 2.25rem; box-shadow: var(--shadow);
+    transition: transform var(--t-med) var(--easing), border-color var(--t-med), box-shadow var(--t-med);
+}
+.blog-post-card:hover { transform: translateY(-6px); border-color: var(--border-strong); box-shadow: var(--shadow-glow); }
+.blog-post-card.featured { border-color: var(--border-strong); box-shadow: var(--shadow-glow); }
+
+.blog-post-meta { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; font-family: var(--font-mono); font-size: 0.78rem; color: var(--foreground-muted); margin-bottom: 0.85rem; }
+.blog-post-tag { color: var(--accent-2); letter-spacing: 0.04em; }
+.blog-badge {
+    font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 0.2rem 0.6rem; border-radius: var(--radius-pill);
+    background: var(--accent-glow); color: var(--accent-2); border: 1px solid var(--border);
+}
+.blog-post-card h2 { font-size: 1.5rem; letter-spacing: -0.01em; margin-bottom: 0.7rem; }
+.blog-post-card p { color: var(--foreground-muted); margin-bottom: 1.25rem; }
+.blog-post-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
+.blog-post-tech span {
+    font-family: var(--font-mono); font-size: 0.76rem; padding: 0.3rem 0.7rem;
+    border-radius: var(--radius-pill); background: var(--surface-2); border: 1px solid var(--border); color: var(--foreground-muted);
+}
+.blog-read-more { font-family: var(--font-mono); font-weight: 500; color: var(--accent-2); display: inline-flex; align-items: center; gap: 0.5rem; transition: gap var(--t-fast) var(--easing); }
+.blog-post-card:hover .blog-read-more { gap: 0.85rem; }
+
+/* "More coming" placeholder card */
+.blog-soon {
+    text-align: center; color: var(--foreground-muted);
+    border: 1px dashed var(--border-strong); border-radius: var(--radius);
+    padding: 2rem; font-family: var(--font-mono); font-size: 0.9rem;
+}
+
 /* ── Experience timeline ───────────────────────────────────────────────────── */
 .timeline { position: relative; max-width: 820px; margin: 0 auto; padding-left: 2rem; }
 .timeline::before {
