@@ -42,3 +42,6 @@ allfiles.tar.gz
 # Generated files
 hugo_stats.json
 
+# Favicon generator download bundle (contents already extracted alongside it)
+**/favicon.zip
+
