@@ -115,7 +115,8 @@
 .cs-diagram { margin: 1.5rem 0; padding: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); }
 .cs-diagram svg { width: 100%; height: auto; display: block; }
 .cs-dc-node { fill: var(--bg-elevated); stroke: var(--accent); stroke-width: 1.5; }
-.cs-dc-label { fill: var(--foreground); font-family: var(--font-mono); font-size: 11px; }
+.cs-dc-label { fill: var(--foreground); font-family: var(--font-mono); font-size: 12px; font-weight: 700; }
+.cs-dc-sub { fill: var(--foreground-muted); font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.04em; }
 .cs-link { stroke: var(--accent-2); stroke-width: 2; fill: none; opacity: 0.5; }
 .cs-link.repl { stroke-dasharray: 6 6; animation: dashFlow 1.6s linear infinite; }
 @keyframes dashFlow { to { stroke-dashoffset: -24; } }

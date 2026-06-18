@@ -66,7 +66,7 @@
         <section class="cs-hero">
             <div class="cs-stage" id="csStage">
                 <canvas class="cs-canvas" id="csCanvas" aria-label="Interactive 3D view of three data centers"></canvas>
-                <div class="cs-stage-hint">drag to orbit · click a site</div>
+                <div class="cs-stage-hint">drag to orbit · click any node</div>
 
                 <!-- Site detail panel (filled on click) -->
                 <aside class="cs-panel" id="csPanel" aria-live="polite">
@@ -92,37 +92,39 @@
 
             <p class="cs-eyebrow">CASE STUDY · RELIABILITY ENGINEERING</p>
             <h1 class="cs-title">Multi-Site Disaster Recovery across 3 Data Centers</h1>
-            <p class="cs-lede">How a telecom CBS/CRM platform was made to survive the loss of an entire data center — failover design, cross-site integration, and the tradeoffs behind it.</p>
+            <p class="cs-lede">How a national-scale telecom CBS/CRM platform serving 100M+ subscribers was modernized — VMs to Kubernetes — and made to survive the loss of an entire data center, with zero billing data loss and no outage during cutover.</p>
 
             <div class="cs-meta">
-                <span>Role: {{ your role }}</span>
-                <span>Scale: 3 geo-distributed sites</span>
-                <span>Year: 2023</span>
-                <span>Stack: {{ key tech }}</span>
+                <span>Role: Infrastructure DevOps Team Leader</span>
+                <span>Scale: 3 sites · 100M+ subscribers · 500 TPS</span>
+                <span>When: 2023–2024</span>
+                <span>Stack: Kubernetes · Oracle · F5 · Nginx</span>
             </div>
         </header>
 
         <!-- ── ARTICLE BODY ──────────────────────────────────────────────────── -->
         <article class="cs-article">
-            <span class="cs-todo">SCAFFOLD — placeholder copy below. Replace each {{ ... }} and TODO with the real, anonymized architecture. Nothing here ships as fact until you fill it in.</span>
 
             <h2>Context &amp; constraints</h2>
-            <p>{{ What system was this? What were the availability/SLA requirements, traffic profile, and hard constraints (on-prem, telecom regulation, data residency)? Why did losing a site have to be survivable? }}</p>
+            <p>This was a modernization of both the hardware and the software architecture of a <strong>mission-critical system for a national telecom operator with more than 100 million subscribers</strong>. The platform pairs a <strong>CBS</strong> (Convergent Billing System) with a <strong>CRM</strong>, sustaining roughly <strong>500 transactions per second</strong> of live customer and billing activity.</p>
+            <p>The hard constraint set the tone for every decision: <strong>billing cannot lose orders.</strong> If a recharge, an activation, or a charging event is dropped, that is real money and real customer trust gone. On top of that, the cutover from the legacy platform to the new one had to be invisible to subscribers — <strong>no outage window, 100% functional on day one</strong>. Losing a whole data center to fire, power, or network had to be a survivable event, not a catastrophe.</p>
 
             <h2>The three sites</h2>
-            <p>{{ Describe each site's role — active/active vs active/passive, which is primary, what each holds. The 3D scene above maps to this; keep the labels in sync (edit SITES in datacenter-3d.js). }}</p>
+            <p>The platform runs across <strong>three data centers in the same country but different cities, each more than 500 km apart</strong> — far enough to survive a regional disaster, which in turn rules out synchronous replication over that distance. The topology is <strong>Active-Active-Standby</strong>; the interactive 3D scene above maps one-to-one to it (click a site for its role):</p>
             <ul>
-                <li><strong>DC-A:</strong> {{ role }}</li>
-                <li><strong>DC-B:</strong> {{ role }}</li>
-                <li><strong>DC-C:</strong> {{ role }}</li>
+                <li><strong>DC-1 — Active.</strong> Serves live production traffic. Full Oracle-backed CBS/CRM stack running on Kubernetes, with dedicated storage: ~1 PB for the database tier and ~500 TB for the application tier, each shadowed by a backup storage device of the same size.</li>
+                <li><strong>DC-2 — Active.</strong> Serves live traffic alongside DC-1 and is deliberately sized so that, in the worst case, <strong>a single active site can absorb 100% of national traffic</strong> on its own.</li>
+                <li><strong>DC-3 — Warm standby.</strong> Continuously receives database and application replication so its data is current, but does not take live traffic until promoted during a full active-site loss.</li>
             </ul>
 
             <h2>Integration &amp; failover design</h2>
-            <p>{{ How do the sites stay in sync — replication (sync/async), distributed storage, the HA applications? What detects a failure and how does traffic reroute? This is the core engineering-judgment section. }}</p>
+            <p>Traffic enters through an <strong>F5</strong> that fronts DC-1 and DC-2 under a single DNS name, applying <strong>weighted, proximity-aware load balancing</strong> — a request is served by whichever active site is closest to it. The F5 continuously health-checks each site by probing an HTTPS endpoint and requiring an <strong>HTTP 200 OK</strong> from the Nginx ingress in front of the application. If a site stops returning 200, the F5 simply stops sending it traffic and the surviving active site carries the full load — automatically, with no human in the loop.</p>
+            <p>Inside each site, <strong>Kubernetes is the engine</strong>: it runs the CBS/CRM workloads and orchestrates many other supporting nodes. Traffic splits into two planes — <strong>east-west</strong> traffic flows between the CRM and CBS solutions, while <strong>north-south</strong> traffic arrives through an <strong>API gateway</strong> that lets external channels reach the application through the Nginx layer.</p>
+            <p>The honest tradeoff lives at DC-3. The active pair fails over to each other instantly because they live behind one F5 and one DNS record — but <strong>DNS replication was limited to two sites</strong>. Promoting the warm standby therefore requires a DNS change that has to propagate, so <strong>DC-3 activation is a deliberate, slower step</strong> reserved for the loss of an active site, and failover/switchover can also be triggered <strong>manually</strong> when operators need control. To protect billing through that window, the system is designed to <strong>capture 99.99% of orders and hold them in a <em>wait</em> state during a disruption</strong>, draining the queue once service is restored — so no billing event is silently dropped.</p>
 
             <!-- Animated isometric failover diagram -->
             <div class="cs-diagram">
-                <svg viewBox="0 0 600 320" role="img" aria-label="Failover topology across three data centers">
+                <svg viewBox="0 0 600 320" role="img" aria-label="Failover topology: DC-1 and DC-2 active behind one F5, DC-3 warm standby">
                     <!-- links -->
                     <path class="cs-link repl" id="lnkAB" d="M 150 110 L 450 110"></path>
                     <path class="cs-link repl" d="M 150 110 L 300 250"></path>
@@ -132,35 +134,42 @@
                     <!-- nodes -->
                     <g>
                         <rect class="cs-dc-node" x="105" y="80" width="90" height="60" rx="8"></rect>
-                        <text class="cs-dc-label" x="150" y="115" text-anchor="middle">DC-A</text>
+                        <text class="cs-dc-label" x="150" y="108" text-anchor="middle">DC-1</text>
+                        <text class="cs-dc-sub" x="150" y="124" text-anchor="middle">active</text>
                     </g>
                     <g>
                         <rect class="cs-dc-node" x="405" y="80" width="90" height="60" rx="8"></rect>
-                        <text class="cs-dc-label" x="450" y="115" text-anchor="middle">DC-B</text>
+                        <text class="cs-dc-label" x="450" y="108" text-anchor="middle">DC-2</text>
+                        <text class="cs-dc-sub" x="450" y="124" text-anchor="middle">active</text>
                     </g>
                     <g>
                         <rect class="cs-dc-node" x="255" y="220" width="90" height="60" rx="8"></rect>
-                        <text class="cs-dc-label" x="300" y="255" text-anchor="middle">DC-C</text>
+                        <text class="cs-dc-label" x="300" y="248" text-anchor="middle">DC-3</text>
+                        <text class="cs-dc-sub" x="300" y="264" text-anchor="middle">warm standby</text>
                     </g>
                 </svg>
                 <div class="cs-controls">
                     <button id="btnReplicate">Show replication</button>
-                    <button id="btnFailover">Simulate DC-A failure</button>
+                    <button id="btnFailover">Simulate DC-1 failure</button>
                 </div>
-                <p class="cs-diagram-caption" id="diagramCaption">Steady state: data replicates continuously between all three sites.</p>
+                <p class="cs-diagram-caption" id="diagramCaption">Steady state: DC-1 &amp; DC-2 serve live traffic behind one F5; both replicate continuously to the DC-3 warm standby.</p>
             </div>
 
             <h2>Results</h2>
             <div class="cs-metrics">
-                <div class="cs-metric"><span class="v">&lt;15min</span><span class="k">RPO / RTO</span></div>
-                <div class="cs-metric"><span class="v">99.99%</span><span class="k">Availability</span></div>
-                <div class="cs-metric"><span class="v">3</span><span class="k">Sites integrated</span></div>
-                <div class="cs-metric"><span class="v">{{ ? }}</span><span class="k">{{ metric }}</span></div>
+                <div class="cs-metric"><span class="v">100M+</span><span class="k">Subscribers served</span></div>
+                <div class="cs-metric"><span class="v">500</span><span class="k">TPS sustained</span></div>
+                <div class="cs-metric"><span class="v">99.99%</span><span class="k">Orders captured (zero billing loss)</span></div>
+                <div class="cs-metric"><span class="v">0</span><span class="k">Outages during cutover</span></div>
             </div>
-            <p>{{ What was the measured outcome? Any real failover event it survived? What did you learn / would change? }}</p>
+            <p>The platform went live with <strong>zero downtime during cutover and full functionality from day one</strong>, and the <strong>VM-to-Kubernetes migration completed without data loss</strong>. Disaster-recovery runbooks were not left on paper: recovery plans and failover drills were executed against the system <strong>months ahead of go-live</strong>, and functionality was verified repeatedly before delivery. The single most satisfying milestone was moving the project's status from <em>delivery</em> to <em>maintenance</em> — the signal that the design held under real operations.</p>
+
+            <h2>Leadership &amp; lessons learned</h2>
+            <p>As Infrastructure DevOps Team Leader I also mentored several early-career engineers through this delivery, and watching their work mature into production-grade contributions was as rewarding as the architecture itself. A practical organizational lesson: <strong>small teams are easy to coordinate, but a large delivery only works when those small teams operate as one whole</strong> toward shared development and deployment goals.</p>
+            <p>If I did it again, I would carry <strong>less unnecessary worry</strong> and manage my time more deliberately. The tool I picked up <em>during</em> the delivery — and wish I'd had at the start — is the <strong>Eisenhower (importance vs. urgency) matrix: Do, Decide, Delegate, Delete.</strong> It is now how I triage under pressure.</p>
 
             <h2>Anonymization note</h2>
-            <p>{{ Decide what to name (telecom operator, CBS/CRM) vs. keep generic. Keep this honest and defensible in an interview. }}</p>
+            <p>Operator identity, exact locations, and proprietary configuration are intentionally omitted. Figures are rounded and the architecture is described at a design level; industry-standard components (Kubernetes, Oracle, F5, Nginx) are named because they are generic and non-sensitive. Everything here is presented to be honest and defensible in a technical interview.</p>
         </article>
     </main>
 
@@ -208,12 +217,12 @@
             document.getElementById('btnReplicate').addEventListener('click', function () {
                 repl.forEach(function (l) { l.classList.add('repl'); });
                 if (dot) dot.style.opacity = '0';
-                cap.textContent = 'Steady state: data replicates continuously between all three sites.';
+                cap.textContent = 'Steady state: DC-1 & DC-2 serve live traffic behind one F5; both replicate continuously to the DC-3 warm standby.';
             });
             document.getElementById('btnFailover').addEventListener('click', function () {
                 if (!dot) return;
-                cap.textContent = 'DC-A fails → its traffic and workloads reroute to DC-B and DC-C within the RTO window.';
-                // Animate a traffic dot from DC-A toward DC-B (SMIL-free, rAF)
+                cap.textContent = 'DC-1 fails its HTTPS health check → the F5 instantly shifts all traffic to DC-2, which is sized to absorb the full load. DC-3 is promoted only for a full active-site loss (via a DNS change).';
+                // Animate a traffic dot from DC-1 toward DC-2 (SMIL-free, rAF)
                 var start = null, dur = 1400;
                 dot.style.opacity = '1';
                 function step(ts) {
