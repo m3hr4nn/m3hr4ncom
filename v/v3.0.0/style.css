@@ -525,32 +525,11 @@ body::after {
 }
 .stat-item i { color: var(--accent-2); }
 
-/* ── Open source projects ──────────────────────────────────────────────────── */
-.opensource-intro { color: var(--foreground-muted); text-align: center; max-width: 60ch; margin: 0 auto 2.5rem; }
-
-/* Featured: top 3 in a responsive grid */
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-
-/* More projects: manual horizontal scroll, no auto-advance */
-.more-projects-title {
-    font-size: 1.05rem; font-weight: 600; color: var(--foreground-muted);
-    margin: 2.75rem 0 1.1rem;
-}
-.project-scroll {
-    display: flex; gap: 1.5rem;
-    overflow-x: auto; scroll-snap-type: x proximity;
-    padding-bottom: 1rem; -webkit-overflow-scrolling: touch;
-}
-.project-scroll .project-card { flex: 0 0 300px; scroll-snap-align: start; }
-.project-scroll::-webkit-scrollbar { height: 8px; }
-.project-scroll::-webkit-scrollbar-track { background: var(--surface-2); border-radius: var(--radius-pill); }
-.project-scroll::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: var(--radius-pill); }
-.project-scroll::-webkit-scrollbar-thumb:hover { background: var(--accent); }
-
+/* ── Open source slideshow ─────────────────────────────────────────────────── */
+.slideshow-wrapper { position: relative; }
+.slideshow-container { overflow: hidden; border-radius: var(--radius); }
+.slideshow-track { display: flex; }
+.project-slide { flex: 0 0 calc(100% / 3); padding: 0.75rem; }
 .project-card { height: 100%; display: flex; flex-direction: column; align-items: flex-start; padding: 1.75rem; transition: transform var(--t-med) var(--easing), border-color var(--t-med), box-shadow var(--t-med); }
 .project-card:hover { transform: translateY(-6px); border-color: var(--border-strong); box-shadow: var(--shadow-glow); }
 .project-icon {
@@ -566,6 +545,25 @@ body::after {
     transition: gap var(--t-fast) var(--easing);
 }
 .project-link:hover { gap: 0.8rem; }
+
+.slideshow-arrow {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 46px; height: 46px; display: grid; place-items: center;
+    border-radius: var(--radius-pill);
+    background: var(--surface-2); border: 1px solid var(--border);
+    color: var(--foreground); cursor: pointer; z-index: 3;
+    backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur));
+    transition: background var(--t-fast), border-color var(--t-fast), transform var(--t-fast);
+}
+.slideshow-arrow:hover { border-color: var(--accent); color: var(--accent-2); }
+.slideshow-prev { left: -10px; }
+.slideshow-next { right: -10px; }
+.slideshow-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.5rem; }
+.slideshow-dots button {
+    width: 8px; height: 8px; border-radius: 50%; border: none; cursor: pointer;
+    background: var(--border-strong);
+}
+.slideshow-dots button.active { background: var(--accent); width: 22px; border-radius: var(--radius-pill); }
 
 /* ── Featured case-study "window" ──────────────────────────────────────────── */
 .casestudy-window {
@@ -729,7 +727,9 @@ body::after {
     .section { padding: 4.5rem 0; }
     .nav-menu { display: none; }
     .hamburger { display: flex; }
-    .project-scroll .project-card { flex-basis: 82%; }
+    .project-slide { flex-basis: 100%; }
+    .slideshow-prev { left: 4px; }
+    .slideshow-next { right: 4px; }
     .timeline-header { flex-direction: column; }
 }
 
