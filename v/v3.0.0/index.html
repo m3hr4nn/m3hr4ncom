@@ -36,7 +36,7 @@
     <title>Mehran Naderizadeh - DevOps Engineer Portfolio</title>
     <meta name="description" content="DevOps Engineer with 6+ years experience managing 35000+ computing resources. Expertise in Kubernetes, Docker, CI/CD, and cloud infrastructure.">
     <meta name="robots" content="index, follow">
-    <meta name="version" content="3.1.0">
+    <meta name="version" content="3.0.0">
     <meta name="color-scheme" content="dark light">
     <meta name="theme-color" content="#050506">
     
@@ -130,8 +130,8 @@
                 <p class="hero-greeting">Hello, I'm</p>
                 <span class="hero-name">Mehran Naderizadeh</span>
             </h1>
-            <p class="hero-subtitle">IT World Wanderer</p>
-            <p class="hero-description">Roaming through servers, clouds &amp; code — and sharing the journey along the way.</p>
+            <p class="hero-subtitle">DevOps Engineer & Infrastructure Specialist</p>
+            <p class="hero-description">Building scalable infrastructure for the future</p>
             <div class="hero-buttons">
                 <a href="#portfolio" class="btn btn-primary">View My Work</a>
                 <a href="#contact" class="btn btn-secondary">Get In Touch</a>
@@ -341,154 +341,175 @@
     <section id="opensource" class="section opensource-section">
         <div class="container">
             <h2 class="section-title">Open Source Projects</h2>
-            <p class="opensource-intro">A few things I've built and tinkered with — the highlights first, the rest are just a scroll away.</p>
+            <div class="slideshow-wrapper">
+                <div class="slideshow-container" id="projectSlideshow">
+                    <div class="slideshow-track">
 
-            <!-- Featured: top 3 -->
-            <div class="project-grid">
+                        <!-- Project 1: Google IP Monitor — FLAGSHIP -->
+                        <div class="project-slide">
+                            <div class="project-card">
+                                <div class="project-icon">
+                                    <i class="fas fa-globe"></i>
+                                </div>
+                                <h3>Google IP Monitor</h3>
+                                <p class="project-description">Automated monitoring of Google's 1,000+ IP ranges with real-time Telegram alerts every 3 hours, interactive analytics dashboard, and firewall rule exports in 9 formats (iptables, AWS, Azure, Cisco, pfSense, MikroTik &amp; more).</p>
+                                <div class="project-tech">
+                                    <span>Python</span>
+                                    <span>GitHub Actions</span>
+                                    <span>Microservices</span>
+                                </div>
+                                <a href="https://m3hr4nn.github.io/googleipmonitor/" target="_blank" class="project-link">
+                                    Live Dashboard <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
 
-                <!-- Featured 1: Google IP Monitor — FLAGSHIP -->
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-globe"></i>
+                        <!-- Project 2: TIL -->
+                        <div class="project-slide">
+                            <div class="project-card">
+                                <div class="project-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <h3>Today-I-Learned Snippets</h3>
+                                <p class="project-description">A collection of concise write-ups on small things I learn day to day across various languages and technologies.</p>
+                                <div class="project-tech">
+                                    <span>Documentation</span>
+                                    <span>Knowledge Base</span>
+                                    <span>Learning</span>
+                                </div>
+                                <a href="https://m3hr4nn.github.io/TIL/" target="_blank" class="project-link">
+                                    View Project <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Project 3: MobaXterm Sessions -->
+                        <div class="project-slide">
+                            <div class="project-card">
+                                <div class="project-icon">
+                                    <i class="fas fa-file-import"></i>
+                                </div>
+                                <h3>MXTSessions Generator</h3>
+                                <p class="project-description">Convert list of IPs from CSV or Excel files to .mxtsessions format for easy import into MobaXterm.</p>
+                                <div class="project-tech">
+                                    <span>JavaScript</span>
+                                    <span>File Processing</span>
+                                    <span>MobaXterm</span>
+                                </div>
+                                <a href="https://m3hr4nn.github.io/mxtsessions-generator/" target="_blank" class="project-link">
+                                    View Project <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Project 4: WSDL to Excel -->
+                        <div class="project-slide">
+                            <div class="project-card">
+                                <div class="project-icon">
+                                    <i class="fas fa-file-excel"></i>
+                                </div>
+                                <h3>WSDL to Excel Converter</h3>
+                                <p class="project-description">Web application that converts WSDL (Web Services Description Language) files into structured Excel documents.</p>
+                                <div class="project-tech">
+                                    <span>JavaScript</span>
+                                    <span>XML Processing</span>
+                                    <span>Excel</span>
+                                </div>
+                                <a href="https://m3hr4nn.github.io/wsdl-to-xlsx-converter/" target="_blank" class="project-link">
+                                    View Project <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Project 5: WSDL to Word -->
+                        <div class="project-slide">
+                            <div class="project-card">
+                                <div class="project-icon">
+                                    <i class="fas fa-file-word"></i>
+                                </div>
+                                <h3>WSDL to Word Converter</h3>
+                                <p class="project-description">Web application that converts WSDL (Web Services Description Language) files into structured Word documents.</p>
+                                <div class="project-tech">
+                                    <span>JavaScript</span>
+                                    <span>XML Processing</span>
+                                    <span>Word</span>
+                                </div>
+                                <a href="https://m3hr4nn.github.io/wsdl-to-docx-converter/" target="_blank" class="project-link">
+                                    View Project <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Project 6: Fix the Pipeline -->
+                        <div class="project-slide">
+                            <div class="project-card">
+                                <div class="project-icon">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <h3>Fix the Pipeline Game</h3>
+                                <p class="project-description">A puzzle game where the player needs to fix broken pipelines to complete the flowchart.</p>
+                                <div class="project-tech">
+                                    <span>JavaScript</span>
+                                    <span>Game Dev</span>
+                                    <span>HTML5 Canvas</span>
+                                </div>
+                                <a href="https://m3hr4nn.github.io/fix-the-pipline/" target="_blank" class="project-link">
+                                    View Project <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Project 7: IP Calculator -->
+                        <div class="project-slide">
+                            <div class="project-card">
+                                <div class="project-icon">
+                                    <i class="fas fa-network-wired"></i>
+                                </div>
+                                <h3>IP Subnet Calculator</h3>
+                                <p class="project-description">A simple, static IP subnet calculator built with HTML, CSS, and JavaScript for network configuration.</p>
+                                <div class="project-tech">
+                                    <span>JavaScript</span>
+                                    <span>Networking</span>
+                                    <span>Web Tools</span>
+                                </div>
+                                <a href="https://m3hr4nn.github.io/ip-calculator/" target="_blank" class="project-link">
+                                    View Project <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Project 8: Prompt Decorators -->
+                        <div class="project-slide">
+                            <div class="project-card">
+                                <div class="project-icon">
+                                    <i class="fas fa-magic"></i>
+                                </div>
+                                <h3>Prompt Decorators</h3>
+                                <p class="project-description">Structured prefixes to enhance AI responses, making outputs more logical and well-organized without lengthy instructions.</p>
+                                <div class="project-tech">
+                                    <span>AI/ML</span>
+                                    <span>Prompt Engineering</span>
+                                    <span>Python</span>
+                                </div>
+                                <a href="https://github.com/m3hr4nn/prompt-decorators" target="_blank" class="project-link">
+                                    View Project <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+
                     </div>
-                    <h3>Google IP Monitor</h3>
-                    <p class="project-description">Automated monitoring of Google's 1,000+ IP ranges with real-time Telegram alerts every 3 hours, interactive analytics dashboard, and firewall rule exports in 9 formats (iptables, AWS, Azure, Cisco, pfSense, MikroTik &amp; more).</p>
-                    <div class="project-tech">
-                        <span>Python</span>
-                        <span>GitHub Actions</span>
-                        <span>Automation</span>
-                        <span>Observability</span>
-                    </div>
-                    <a href="https://m3hr4nn.github.io/googleipmonitor/" target="_blank" class="project-link">
-                        Live Dashboard <i class="fas fa-external-link-alt"></i>
-                    </a>
                 </div>
-
-                <!-- Featured 2: Prompt Decorators -->
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-magic"></i>
-                    </div>
-                    <h3>Prompt Decorators</h3>
-                    <p class="project-description">Structured prefixes to enhance AI responses, making outputs more logical and well-organized without lengthy instructions.</p>
-                    <div class="project-tech">
-                        <span>AI/ML</span>
-                        <span>Prompt Engineering</span>
-                        <span>Python</span>
-                    </div>
-                    <a href="https://github.com/m3hr4nn/prompt-decorators" target="_blank" class="project-link">
-                        View Project <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
-
-                <!-- Featured 3: TIL -->
-                <div class="project-card">
-                    <div class="project-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <h3>Today-I-Learned Snippets</h3>
-                    <p class="project-description">A collection of concise write-ups on small things I learn day to day across various languages and technologies.</p>
-                    <div class="project-tech">
-                        <span>Documentation</span>
-                        <span>Knowledge Base</span>
-                        <span>Learning</span>
-                    </div>
-                    <a href="https://m3hr4nn.github.io/TIL/" target="_blank" class="project-link">
-                        View Project <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
-
-            </div>
-
-            <!-- More projects: manual horizontal scroll, no auto-advance -->
-            <h3 class="more-projects-title">More projects</h3>
-            <div class="project-scroll" role="list" aria-label="More projects — scroll to browse">
-
-                <!-- MobaXterm Sessions -->
-                <div class="project-card" role="listitem">
-                    <div class="project-icon">
-                        <i class="fas fa-file-import"></i>
-                    </div>
-                    <h3>MXTSessions Generator</h3>
-                    <p class="project-description">Convert list of IPs from CSV or Excel files to .mxtsessions format for easy import into MobaXterm.</p>
-                    <div class="project-tech">
-                        <span>JavaScript</span>
-                        <span>File Processing</span>
-                        <span>MobaXterm</span>
-                    </div>
-                    <a href="https://m3hr4nn.github.io/mxtsessions-generator/" target="_blank" class="project-link">
-                        View Project <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
-
-                <!-- WSDL to Excel -->
-                <div class="project-card" role="listitem">
-                    <div class="project-icon">
-                        <i class="fas fa-file-excel"></i>
-                    </div>
-                    <h3>WSDL to Excel Converter</h3>
-                    <p class="project-description">Web application that converts WSDL (Web Services Description Language) files into structured Excel documents.</p>
-                    <div class="project-tech">
-                        <span>JavaScript</span>
-                        <span>XML Processing</span>
-                        <span>Excel</span>
-                    </div>
-                    <a href="https://m3hr4nn.github.io/wsdl-to-xlsx-converter/" target="_blank" class="project-link">
-                        View Project <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
-
-                <!-- WSDL to Word -->
-                <div class="project-card" role="listitem">
-                    <div class="project-icon">
-                        <i class="fas fa-file-word"></i>
-                    </div>
-                    <h3>WSDL to Word Converter</h3>
-                    <p class="project-description">Web application that converts WSDL (Web Services Description Language) files into structured Word documents.</p>
-                    <div class="project-tech">
-                        <span>JavaScript</span>
-                        <span>XML Processing</span>
-                        <span>Word</span>
-                    </div>
-                    <a href="https://m3hr4nn.github.io/wsdl-to-docx-converter/" target="_blank" class="project-link">
-                        View Project <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
-
-                <!-- Fix the Pipeline -->
-                <div class="project-card" role="listitem">
-                    <div class="project-icon">
-                        <i class="fas fa-gamepad"></i>
-                    </div>
-                    <h3>Fix the Pipeline Game</h3>
-                    <p class="project-description">A puzzle game where the player needs to fix broken pipelines to complete the flowchart.</p>
-                    <div class="project-tech">
-                        <span>JavaScript</span>
-                        <span>Game Dev</span>
-                        <span>HTML5 Canvas</span>
-                    </div>
-                    <a href="https://m3hr4nn.github.io/fix-the-pipline/" target="_blank" class="project-link">
-                        View Project <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
-
-                <!-- IP Calculator -->
-                <div class="project-card" role="listitem">
-                    <div class="project-icon">
-                        <i class="fas fa-network-wired"></i>
-                    </div>
-                    <h3>IP Subnet Calculator</h3>
-                    <p class="project-description">A simple, static IP subnet calculator built with HTML, CSS, and JavaScript for network configuration.</p>
-                    <div class="project-tech">
-                        <span>JavaScript</span>
-                        <span>Networking</span>
-                        <span>Web Tools</span>
-                    </div>
-                    <a href="https://m3hr4nn.github.io/ip-calculator/" target="_blank" class="project-link">
-                        View Project <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
-
+                
+                <!-- Navigation Dots -->
+                <div class="slideshow-dots" id="slideshowDots"></div>
+                
+                <!-- Navigation Arrows -->
+                <button class="slideshow-arrow slideshow-prev" id="slidePrev" aria-label="Previous project">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slideshow-arrow slideshow-next" id="slideNext" aria-label="Next project">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
     </section>
@@ -583,14 +604,14 @@
                         <i class="fas fa-envelope" aria-hidden="true"></i>
                         <div>
                             <h4>Email</h4>
-                            <a href="contact-form.html">Send me a message</a>
+                            <a href="#" class="email-link" data-user="mehran.n1995" data-domain="gmail.com">Contact Email</a>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-phone" aria-hidden="true"></i>
                         <div>
                             <h4>Phone</h4>
-                            <a href="contact-form.html">Request a call</a>
+                            <a href="#" class="phone-link" data-phone="+989128399782">Contact Phone</a>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -620,10 +641,7 @@
                         <a href="https://t.me/m3hr4nn" target="_blank" rel="noopener" class="social-link" aria-label="Telegram">
                             <i class="fab fa-telegram"></i>
                         </a>
-                        <a href="https://www.youtube.com/@m3hr4nn" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                        <a href="contact-form.html" class="social-link" aria-label="Contact form">
+                        <a href="mailto:mehran.n1995@gmail.com" class="social-link" aria-label="Email">
                             <i class="fas fa-envelope"></i>
                         </a>
                     </div>

@@ -133,6 +133,65 @@ const initProfileImage = () => {
 };
 
 // ─── Project Slideshow ───────────────────────────────────────────────────────
+const initProjectSlideshow = () => {
+    const track = document.querySelector('.slideshow-track');
+    const slides = document.querySelectorAll('.project-slide');
+    const prevBtn = document.getElementById('slidePrev');
+    const nextBtn = document.getElementById('slideNext');
+    const container = document.getElementById('projectSlideshow');
+
+    if (!track || !slides.length) return;
+
+    const total = slides.length;
+    let cur = 0, paused = false, interval;
+    let spv = window.innerWidth <= 768 ? 1 : 3;
+    let touchStart = 0, touchEnd = 0;
+
+    slides.forEach(s => { const c = s.cloneNode(true); c.classList.add('clone'); track.appendChild(c); });
+
+    const move = (animate = true) => {
+        track.style.transition = animate ? 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)' : 'none';
+        track.style.transform = `translateX(${-(cur * 100 / spv)}%)`;
+        if (!animate) { track.offsetHeight; track.style.transition = ''; }
+    };
+
+    const next = () => {
+        cur++;
+        move();
+        if (cur >= total) setTimeout(() => { cur = 0; move(false); }, 800);
+    };
+
+    const prev = () => {
+        cur--;
+        if (cur < 0) { cur = total - 1; move(false); setTimeout(() => move(), 50); }
+        else move();
+    };
+
+    const start = () => { if (!paused) interval = setInterval(next, 4000); };
+    const stop = () => clearInterval(interval);
+
+    prevBtn?.addEventListener('click', () => { prev(); stop(); start(); });
+    nextBtn?.addEventListener('click', () => { next(); stop(); start(); });
+
+    container?.addEventListener('mouseenter', () => { paused = true; stop(); });
+    container?.addEventListener('mouseleave', () => { paused = false; start(); });
+    container?.addEventListener('touchstart', e => { touchStart = e.changedTouches[0].screenX; paused = true; stop(); }, { passive: true });
+    container?.addEventListener('touchmove', e => { touchEnd = e.changedTouches[0].screenX; }, { passive: true });
+    container?.addEventListener('touchend', () => {
+        if (Math.abs(touchStart - touchEnd) > 50) touchStart > touchEnd ? next() : prev();
+        setTimeout(() => { paused = false; start(); }, 5000);
+        touchEnd = 0;
+    });
+
+    window.addEventListener('resize', () => {
+        const n = window.innerWidth <= 768 ? 1 : 3;
+        if (n !== spv) { spv = n; cur = 0; move(false); }
+    });
+
+    move(false);
+    start();
+};
+
 // ─── Cookie Consent ──────────────────────────────────────────────────────────
 const initCookieConsent = () => {
     const banner = document.getElementById('cookieConsent');
@@ -143,6 +202,24 @@ const initCookieConsent = () => {
     });
     document.getElementById('declineCookies')?.addEventListener('click', () => {
         localStorage.setItem('cookieConsent', 'declined'); banner.style.display = 'none';
+    });
+};
+
+// ─── Contact Protection ──────────────────────────────────────────────────────
+const initContactProtection = () => {
+    document.querySelectorAll('.email-link').forEach(link => {
+        const { user, domain } = link.dataset;
+        if (user && domain) {
+            link.textContent = `${user}@${domain}`;
+            link.addEventListener('click', e => { e.preventDefault(); window.location.href = `mailto:${user}@${domain}`; });
+        }
+    });
+    document.querySelectorAll('.phone-link').forEach(link => {
+        const { phone } = link.dataset;
+        if (phone) {
+            link.textContent = phone;
+            link.addEventListener('click', e => { e.preventDefault(); window.location.href = `tel:${phone}`; });
+        }
     });
 };
 
@@ -165,7 +242,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initAnimations();
     initProfileImage();
+    initProjectSlideshow();
     initCookieConsent();
+    initContactProtection();
 
     const yr = document.getElementById('footerYear');
     if (yr) yr.textContent = new Date().getFullYear();
