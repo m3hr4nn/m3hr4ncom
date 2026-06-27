@@ -45,3 +45,8 @@ hugo_stats.json
 # Favicon generator download bundle (contents already extracted alongside it)
 **/favicon.zip
 
+# Markdown: only README.md is public. Internal docs (agent instructions,
+# planning notes, scratch) stay local and out of GitHub.
+*.md
+!README.md
+
